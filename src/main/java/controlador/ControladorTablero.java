@@ -1,8 +1,6 @@
 package controlador;
-
 import modelo.Casilla;
 import modelo.Tablero;
-
 public class ControladorTablero {
 
     public String nuevoTablero(){
@@ -19,5 +17,4 @@ public class ControladorTablero {
         tablero.setMatriz(posiciones);
         return tablero.getMatriz();
     }
-
 }

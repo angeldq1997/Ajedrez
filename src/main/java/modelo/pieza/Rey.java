@@ -1,8 +1,6 @@
 package modelo.pieza;
-
 import modelo.Color;
 import modelo.Pieza;
-
 public class Rey extends Pieza {
 
     public Rey(int columna, int fila, Color color) {

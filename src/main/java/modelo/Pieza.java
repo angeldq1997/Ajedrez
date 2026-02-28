@@ -1,7 +1,5 @@
 package modelo;
-
 import java.io.Serializable;
-
 public abstract class Pieza implements Serializable {
     private int columna;
     private int fila;

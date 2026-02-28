@@ -1,5 +1,4 @@
 package modelo;
-
 public enum TipoPieza {
     PEON,
     CABALLO,

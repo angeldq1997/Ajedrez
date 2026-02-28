@@ -18,4 +18,5 @@ public class Torre extends Pieza {
     public boolean mover() {
         return false;
     }
+
 }

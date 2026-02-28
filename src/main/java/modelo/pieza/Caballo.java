@@ -1,9 +1,7 @@
 package modelo.pieza;
-
 import modelo.Color;
 import modelo.Pieza;
 import modelo.Saltadora;
-
 public class Caballo extends Pieza implements Saltadora {
 
     public Caballo(int columna, int fila, Color color) {

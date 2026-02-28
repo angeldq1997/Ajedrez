@@ -1,8 +1,6 @@
 package modelo.pieza;
-
 import modelo.Color;
 import modelo.Pieza;
-
 public class Alfil extends Pieza {
 
     public Alfil(int columna, int fila, Color color) {
