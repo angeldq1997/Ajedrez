@@ -2,11 +2,12 @@ package modelo.pieza;
 
 import modelo.Color;
 import modelo.Pieza;
+import modelo.TipoPieza;
 
 public class Torre extends Pieza {
 
     public Torre(int columna, int fila, Color color) {
-        super(columna, fila, color, 5);
+        super(columna, fila, color, 5, TipoPieza.TORRE);
     }
 
     @Override
