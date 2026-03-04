@@ -5,6 +5,7 @@ public abstract class Pieza implements Serializable {
     private int fila;
     private Color color;
     private char icono;
+    protected TipoPieza tipoPieza;
 
     public Pieza(int fila, int columna, Color color) {
         validaPosicion(fila, columna);
@@ -22,8 +23,27 @@ public abstract class Pieza implements Serializable {
         }
     }
 
-    public abstract boolean atacar();
+    /**
+     * Método con el que podemos definir en cada pieza que herede, la manera de moverse en el tablero
+     * @param filaDestino El número de la fila donde queremos mover la pieza
+     * @param columnaDestina El número de la columna donde queremos mover la pieza
+     * @param tablero Tablero donde se mueve la pieza
+     * @return Devuelve un booleano
+     */
+    public abstract boolean puedeMover (int filaDestino, int columnaDestina, Tablero tablero);
 
-    public abstract boolean mover();
+    /**
+     * Método con el que podemos hacer una copia de la pieza
+     * @return Devuelve la copia de la pieza
+     */
+    public abstract Pieza copiar ();
+
+    /**
+     * Método con el que podemos obtener los puntos de una pieza
+     * @return Devuelve los puntos de una pieza
+     */
+    public abstract int getPuntos();
+
+    public abstract String toString ();
 
 }
