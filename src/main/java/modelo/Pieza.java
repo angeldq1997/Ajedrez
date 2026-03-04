@@ -1,5 +1,7 @@
 package modelo;
 import java.io.Serializable;
+import java.util.Objects;
+
 public abstract class Pieza implements Serializable {
     private int columna;
     private int fila;
@@ -70,5 +72,60 @@ public abstract class Pieza implements Serializable {
      */
     public boolean puedeAtacar (int filaDestino, int columnaDestino, Tablero tablero){
         return puedeMover(filaDestino, columnaDestino, tablero);
+    }
+
+    public int getColumna() {
+        return this.columna;
+    }
+
+    public void setColumna(int columna) {
+        this.columna = columna;
+    }
+
+    public int getFila() {
+        return this.fila;
+    }
+
+    public void setFila(int fila) {
+        this.fila = fila;
+    }
+
+    public Color getColor() {
+        return this.color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    public char getIcono() {
+        return this.icono;
+    }
+
+    public void setIcono(char icono) {
+        this.icono = icono;
+    }
+
+    public TipoPieza getTipoPieza() {
+        return this.tipoPieza;
+    }
+
+    public void setTipoPieza(TipoPieza tipoPieza) {
+        this.tipoPieza = tipoPieza;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Pieza pieza = (Pieza) o;
+        return this.columna == pieza.columna &&
+                this.fila == pieza.fila &&
+                this.color == pieza.color &&
+                this.tipoPieza == pieza.tipoPieza;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(columna, fila, color, tipoPieza);
     }
 }
