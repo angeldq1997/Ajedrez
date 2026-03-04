@@ -46,4 +46,19 @@ public abstract class Pieza implements Serializable {
 
     public abstract String toString ();
 
+    /**
+     * Método con el que movemos a una pieza de sitio en el tablero
+     * @param filaDestino El número de la fila donde queremos mover a la pieza en el tablero
+     * @param columnaDestino El número de la columna donde queremos mover a la pieza en el tablero
+     * @param tablero Tablero donde se mueve la pieza
+     */
+    public void mover (int filaDestino, int columnaDestino, Tablero tablero){
+        validaPosicion(filaDestino, columnaDestino);
+        if (!puedeMover(filaDestino, columnaDestino, tablero)){
+            throw new IllegalArgumentException("Movimiento no permitido para esta pieza");
+        }
+        this.fila = filaDestino;
+        this.columna = columnaDestino;
+    }
+
 }
