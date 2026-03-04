@@ -61,4 +61,14 @@ public abstract class Pieza implements Serializable {
         this.columna = columnaDestino;
     }
 
+    /**
+     * Método con el que podemos atacar a otra pieza que esté en el tablero
+     * @param filaDestino El número de la fila donde queremos mover a la pieza en el tablero
+     * @param columnaDestino El número de la columna donde queremos mover a la pieza en el tablero
+     * @param tablero Tablero donde se mueve la pieza
+     * @return Devuelve si puede atacar o no
+     */
+    public boolean puedeAtacar (int filaDestino, int columnaDestino, Tablero tablero){
+        return puedeMover(filaDestino, columnaDestino, tablero);
+    }
 }
