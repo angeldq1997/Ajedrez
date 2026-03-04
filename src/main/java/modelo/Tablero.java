@@ -6,9 +6,9 @@ public class Tablero {
     List piezasNegras = new ArrayList<Pieza>();
     List piezasEliminadas = new ArrayList<Pieza>();
 
-
-    public Tablero() {
-
-
+    public Tablero(List piezasBlancas, List piezasNegras, List piezasEliminadas) {
+        this.piezasBlancas = piezasBlancas;
+        this.piezasNegras = piezasNegras;
+        this.piezasEliminadas = piezasEliminadas;
     }
 }
