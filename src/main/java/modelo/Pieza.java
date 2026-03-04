@@ -28,4 +28,19 @@ public abstract class Pieza implements Serializable {
 
     public abstract boolean mover();
 
+    public int getColumna() {
+        return columna;
+    }
+
+    public void setColumna(int columna) {
+        this.columna = columna;
+    }
+
+    public int getFila() {
+        return fila;
+    }
+
+    public void setFila(int fila) {
+        this.fila = fila;
+    }
 }
