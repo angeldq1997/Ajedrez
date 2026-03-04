@@ -28,4 +28,7 @@ public abstract class Pieza implements Serializable {
 
     public abstract boolean mover();
 
+    public int getPuntos(){
+        return this.puntos;
+    }
 }
