@@ -1,19 +1,41 @@
 package modelo.pieza;
 import modelo.Color;
 import modelo.Pieza;
+import modelo.Tablero;
+import modelo.TipoPieza;
+
 public class Rey extends Pieza {
+    public String toString() {
+        if (this.getColor() == Color.BLANCA) {
+            return "♔";
+        } else {
+            return "♚";
+        }
+    }
 
     public Rey(int columna, int fila, Color color) {
-        super(columna, fila, color, 100);
+        super(columna, fila, color);
+        this.tipoPieza = TipoPieza.REY;
     }
 
     @Override
-    public boolean atacar() {
+    public boolean puedeMover(int filaDestino, int columnaDestina, Tablero tablero) {
         return false;
     }
 
     @Override
-    public boolean mover() {
-        return false;
+    public Pieza copiar() {
+        return null;
     }
+
+    @Override
+    public int getPuntos() {
+        return 100;
+    }
+
+    @Override
+    public String toString() {
+        return "";
+    }
+
 }

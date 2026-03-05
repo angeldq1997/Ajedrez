@@ -1,8 +1,17 @@
 import controlador.ControladorTablero;
+import modelo.Pieza;
+
+import java.util.ArrayList;
+
 public class main {
     public static void main(String[] args){
-        ControladorTablero c = new ControladorTablero();
-
-        System.out.println( c.nuevoTablero() );
+        System.out.println("♜  ♞  ♝  ♚  ♛  ♝  ♞  ♜" +
+                "\n♟  ♟  ♟  ♟  ♟  ♟  ♟  ♟" +
+                "\n░  ▓  ░  ▓  ░  ▓  ░  ▓" +
+                "\n▓  ░  ▓  ░  ▓  ░  ▓  ░" +
+                "\n░  ▓  ░  ▓  ░  ▓  ░  ▓" +
+                "\n▓  ░  ▓  ░  ▓  ░  ▓  ░" +
+                "\n♙ ♙ ♙ ♙ ♙ ♙ ♙ ♙" +
+                "\n♖ ♘ ♗ ♕ ♔ ♗ ♘ ♖");
     }
 }

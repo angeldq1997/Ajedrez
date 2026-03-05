@@ -2,25 +2,27 @@ package modelo;
 import java.util.ArrayList;
 import java.util.List;
 public class Tablero {
-    String[] matriz;
-    List piezasBlancas = new ArrayList<Pieza>();
-    List piezasNegras = new ArrayList<Pieza>();
-    List piezasEliminadas = new ArrayList<Pieza>();
+    List <Pieza>piezasBlancas = new ArrayList<>();
+    List <Pieza>piezasNegras = new ArrayList<>();
+    List <Pieza>piezasEliminadas = new ArrayList<>();
 
-
-    public Tablero() {
-        this.matriz = new String[64];
+    public Tablero(List piezasBlancas, List piezasNegras, List piezasEliminadas) {
+        this.piezasBlancas = piezasBlancas;
+        this.piezasNegras = piezasNegras;
+        this.piezasEliminadas = piezasEliminadas;
     }
-
-    public String getMatriz() {
-        String comp = "";
-        for (String s: this.matriz){
-            comp += s;
+    public boolean estaOcupado(int fila, int columna) {
+        for (Pieza p : piezasBlancas){
+            if (p.getFila()== fila && p.getColumna() == columna){
+                return true;
+            }
         }
-        return comp;
-    }
+        for (Pieza p : piezasNegras){
+            if (p.getFila()== fila && p.getColumna() == columna){
+                return true;
+            }
 
-    public void setMatriz(String[] matriz) {
-        this.matriz = matriz;
+        }
+        return false;
     }
 }
