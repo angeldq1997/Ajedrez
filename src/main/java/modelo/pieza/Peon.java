@@ -5,10 +5,15 @@ import modelo.Tablero;
 import modelo.TipoPieza;
 
 public class Peon extends Pieza {
-
+    public String toString() {
+        if (this.getColor() == Color.BLANCA) {
+            return "♙";
+        } else {
+            return "♟";
+        }
+    }
     public Peon(int columna, int fila, Color color) {
-        super(columna, fila, color);
-        this.tipoPieza = TipoPieza.PEON;
+      super(columna, fila, color, 1, TipoPieza.PEON);
     }
 
     @Override
@@ -19,16 +24,6 @@ public class Peon extends Pieza {
     @Override
     public Pieza copiar() {
         return null;
-    }
-
-    @Override
-    public int getPuntos() {
-        return 1;
-    }
-
-    @Override
-    public String toString() {
-        return "";
     }
 
 

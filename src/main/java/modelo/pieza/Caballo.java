@@ -2,25 +2,26 @@ package modelo.pieza;
 import modelo.*;
 
 public class Caballo extends Pieza implements Saltadora {
+    public String toString() {
+        if (this.getColor() == Color.BLANCA) {
+            return "♘";
+        } else {
+            return "♞";
+        }
+    }
 
     public Caballo(int columna, int fila, Color color) {
-        super(columna, fila, color);
-        this.tipoPieza = TipoPieza.CABALLO;
+        super(columna, fila, color, 3, TipoPieza.CABALLO);
     }
 
     @Override
     public boolean puedeMover(int filaDestino, int columnaDestina, Tablero tablero) {
-        return false;
+        return false;        
     }
 
     @Override
     public Pieza copiar() {
         return null;
-    }
-
-    @Override
-    public int getPuntos() {
-        return 3;
     }
 
     @Override

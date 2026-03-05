@@ -5,6 +5,13 @@ import modelo.Tablero;
 import modelo.TipoPieza;
 
 public class Rey extends Pieza {
+    public String toString() {
+        if (this.getColor() == Color.BLANCA) {
+            return "♔";
+        } else {
+            return "♚";
+        }
+    }
 
     public Rey(int columna, int fila, Color color) {
         super(columna, fila, color);
