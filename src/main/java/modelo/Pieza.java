@@ -136,6 +136,8 @@ public abstract class Pieza implements Serializable {
         return fila;
     }
 
+    public int getPuntos(){
+        return this.puntos;
     public void setFila(int fila) {
         this.fila = fila;
     @Override
