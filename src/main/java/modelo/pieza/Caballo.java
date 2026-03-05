@@ -1,31 +1,31 @@
 package modelo.pieza;
-import modelo.Color;
-import modelo.Pieza;
-import modelo.Saltadora;
-import modelo.TipoPieza;
+import modelo.*;
 
 public class Caballo extends Pieza implements Saltadora {
-
-    public Caballo(int columna, int fila, Color color) {
-        super(columna, fila, color, 3, TipoPieza.CABALLO);
-        extracted();
-    }
-
-    private void extracted() {
-        if(Color.valueOf("NEGRA").equals(Color.NEGRA)){
-            super.setForma("♞");
-        }else{
-            super.setForma("♘");
+    public String toString() {
+        if (this.getColor() == Color.BLANCA) {
+            return "♘";
+        } else {
+            return "♞";
         }
     }
 
-    @Override
-    public boolean atacar() {
-        return false;
+    public Caballo(int columna, int fila, Color color) {
+        super(columna, fila, color, 3, TipoPieza.CABALLO);
     }
 
     @Override
-    public boolean mover() {
-        return false;
+    public boolean puedeMover(int filaDestino, int columnaDestina, Tablero tablero) {
+        return false;        
+    }
+
+    @Override
+    public Pieza copiar() {
+        return null;
+    }
+
+    @Override
+    public String toString() {
+        return "";
     }
 }
