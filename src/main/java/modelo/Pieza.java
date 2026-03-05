@@ -124,6 +124,20 @@ public abstract class Pieza implements Serializable {
                 this.tipoPieza == pieza.tipoPieza;
     }
 
+    public int getColumna() {
+        return columna;
+    }
+
+    public void setColumna(int columna) {
+        this.columna = columna;
+    }
+
+    public int getFila() {
+        return fila;
+    }
+
+    public void setFila(int fila) {
+        this.fila = fila;
     @Override
     public int hashCode() {
         return Objects.hash(columna, fila, color, tipoPieza);
