@@ -4,6 +4,13 @@ import modelo.Pieza;
 import modelo.TipoPieza;
 
 public class Reina extends Pieza {
+    public String toString() {
+        if (this.getColor() == Color.BLANCA) {
+            return "♕";
+        } else {
+            return "♛";
+        }
+    }
 
     public Reina(int columna, int fila, Color color) {
         super(columna, fila, color, 9, TipoPieza.REINA);
