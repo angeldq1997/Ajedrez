@@ -171,4 +171,20 @@ public class Tablero {
         }
         return estaAgregada;
     }
+
+    public int puntuacionColor(Color color){
+        int puntuacionTotal = 0;
+        if (color == Color.BLANCO){
+            for (Pieza p: piezasBlancas){
+                puntuacionTotal += p.getPuntos();
+            }
+        }else if (color == Color.NEGRO){
+            for (Pieza p: piezasNegras){
+                puntuacionTotal += p.getPuntos();
+            }
+        }else{
+            throw new IllegalArgumentException("Ha introducido un color incorrecto, debe introducir NEGRO o BLANCO.");
+        }
+        return puntuacionTotal;
+    }
 }
