@@ -1,10 +1,59 @@
 package modelo;
 public class Casilla {
-    private Color color;
-    private String pieza;
+    private Pieza pieza;
+    private Color colorCasilla;
+    private char icono;
+    private boolean estaOcupada;
 
-    public Casilla(Color color, String pieza) {
-        this.color = color;
+    public Casilla() {
+        this.pieza = null;
+        this.colorCasilla = null;
+        this.icono = ' ';
+        this.estaOcupada = false;
+    }
+
+    public Casilla(Pieza pieza, Color colorCasilla, char icono) {
         this.pieza = pieza;
+        this.colorCasilla = colorCasilla;
+        this.icono = icono;
+        this.estaOcupada = false;
+    }
+
+    public char getIcono() {
+        return icono;
+    }
+
+    public void setIcono(char icono) {
+        this.icono = icono;
+    }
+
+    public Pieza getPieza() {
+        return pieza;
+    }
+
+    public void setPieza(Pieza pieza) {
+        this.pieza = pieza;
+    }
+
+    public Color getColorCasilla() {
+        return colorCasilla;
+    }
+
+    public void setColorCasilla(Color colorCasilla) {
+        this.colorCasilla = colorCasilla;
+    }
+
+    public boolean estaOcupada() {
+        return estaOcupada;
+    }
+
+    public void setEstaOcupada(boolean estaOcupada) {
+        this.estaOcupada = estaOcupada;
+    }
+
+    public void definirPieza(Pieza pieza){
+        this.pieza = pieza;
+        this.icono = pieza.getForma();
+        this.estaOcupada = true;
     }
 }
