@@ -7,14 +7,6 @@ import modelo.TipoPieza;
 import java.util.Scanner;
 
 public class Alfil extends Pieza {
-    public String toString() {
-        if (this.getColor() == Color.BLANCA) {
-            return "♗";
-        } else {
-            return "♝";
-        }
-    }
-
     public Alfil(int columna, int fila, Color color) {
         super(columna, fila, color);
         this.tipoPieza = TipoPieza.ALFIL;
@@ -37,10 +29,14 @@ public class Alfil extends Pieza {
         return 5;
     }
 
-    @Override
     public String toString() {
-        return "";
+        if (this.getColor() == Color.BLANCA) {
+            return "♗";
+        } else {
+            return "♝";
+        }
     }
+
     public int pidemovimiento() {
         boolean posible = false;
         while (!posible) {

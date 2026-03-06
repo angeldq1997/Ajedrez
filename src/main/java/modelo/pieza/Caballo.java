@@ -2,16 +2,9 @@ package modelo.pieza;
 import modelo.*;
 
 public class Caballo extends Pieza implements Saltadora {
-    public String toString() {
-        if (this.getColor() == Color.BLANCA) {
-            return "♘";
-        } else {
-            return "♞";
-        }
-    }
-
     public Caballo(int columna, int fila, Color color) {
-        super(columna, fila, color, 3, TipoPieza.CABALLO);
+        super(columna, fila, color);
+        this.tipoPieza = TipoPieza.CABALLO;
     }
 
     @Override
@@ -25,7 +18,15 @@ public class Caballo extends Pieza implements Saltadora {
     }
 
     @Override
+    public int getPuntos() {
+        return 3;
+    }
+
     public String toString() {
-        return "";
+        if (this.getColor() == Color.BLANCA) {
+            return "♘";
+        } else {
+            return "♞";
+        }
     }
 }
