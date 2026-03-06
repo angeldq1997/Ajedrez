@@ -11,6 +11,7 @@ public class Tablero {
         this.piezasNegras = piezasNegras;
         this.piezasEliminadas = piezasEliminadas;
     }
+
     public boolean estaOcupado(int fila, int columna) {
         for (Pieza p : piezasBlancas){
             if (p.getFila()== fila && p.getColumna() == columna){
@@ -24,5 +25,21 @@ public class Tablero {
 
         }
         return false;
+    }
+
+    /**
+     * Método con el que obtenemos el lugar exacto de la pieza
+     * @param fila Fila en la que se encuentra la pieza
+     * @param columna Columna en la que se encuentra la pieza
+     * @return Devuelve la pieza o null, si no hay pieza en esa casilla
+     */
+    public Pieza getPieza(int fila, int columna) {
+        for (Pieza p : piezasBlancas) {
+            if (p.getFila() == fila && p.getColumna() == columna) return p;
+        }
+        for (Pieza p : piezasNegras) {
+            if (p.getFila() == fila && p.getColumna() == columna) return p;
+        }
+        return null;
     }
 }

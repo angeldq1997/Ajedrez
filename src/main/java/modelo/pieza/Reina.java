@@ -55,7 +55,7 @@ public class Reina extends Pieza {
             columnaActual += pasoColumna;
         }
 
-        Pieza piezaDestino = tablero.obtenerPieza(filaDestino, columnaDestina);
+        Pieza piezaDestino = tablero.getPieza(filaDestino, columnaDestina);
         if (piezaDestino != null && piezaDestino.getColor() == this.getColor()) {
             return false; // No puede capturar una pieza del mismo color
         }
