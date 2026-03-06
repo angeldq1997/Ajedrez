@@ -4,11 +4,9 @@ import modelo.Pieza;
 import modelo.Tablero;
 import modelo.TipoPieza;
 
-import java.util.Scanner;
-
 public class Alfil extends Pieza {
     public Alfil(int columna, int fila, Color color) {
-        super(columna, fila, color);
+        super(columna, fila, color, 3);
         this.tipoPieza = TipoPieza.ALFIL;
     }
 
@@ -30,7 +28,7 @@ public class Alfil extends Pieza {
     }
 
     public String toString() {
-        if (this.getColor() == Color.BLANCA) {
+        if (this.getColor() == Color.BLANCO) {
             return "♗";
         } else {
             return "♝";

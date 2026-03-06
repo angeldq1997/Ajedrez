@@ -6,7 +6,7 @@ import modelo.TipoPieza;
 
 public class Rey extends Pieza {
     public Rey(int columna, int fila, Color color) {
-        super(columna, fila, color);
+        super(columna, fila, color, 100);
         this.tipoPieza = TipoPieza.REY;
     }
 
@@ -26,7 +26,7 @@ public class Rey extends Pieza {
     }
 
     public String toString() {
-        if (this.getColor() == Color.BLANCA) {
+        if (this.getColor() == Color.BLANCO) {
             return "♔";
         } else {
             return "♚";

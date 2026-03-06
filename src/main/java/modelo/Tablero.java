@@ -1,6 +1,9 @@
 package modelo;
+import modelo.pieza.*;
+
 import java.util.ArrayList;
-import java.util.List;
+
+
 public class Tablero {
     private ArrayList<Pieza> piezasBlancas;
     private ArrayList<Pieza> piezasNegras;
@@ -74,7 +77,7 @@ public class Tablero {
         alfil.setColumna(5);
         piezas.add(alfil);
         for (Pieza p: piezas){
-            p.definirCasilla(this.casillas);
+            p.asignarCasilla(this.casillas);
         }
     }
 
@@ -100,11 +103,11 @@ public class Tablero {
         alfil.setColumna(5);
         piezas.add(alfil);
         for (Pieza p: piezas){
-            p.definirCasilla(this.casillas);
+            p.asignarCasilla(this.casillas);
         }
     }
 
-    public boolean estaOcupado(int fila, int columna) {
+    public boolean estaOcupado(int columna, int fila) {
         for (Pieza p : piezasBlancas){
             if (p.getFila()== fila && p.getColumna() == columna){
                 return true;
@@ -121,11 +124,11 @@ public class Tablero {
 
     /**
      * Método con el que obtenemos el lugar exacto de la pieza
-     * @param fila Fila en la que se encuentra la pieza
      * @param columna Columna en la que se encuentra la pieza
+     * @param fila Fila en la que se encuentra la pieza
      * @return Devuelve la pieza o null, si no hay pieza en esa casilla
      */
-    public Pieza getPieza(int fila, int columna) {
+    public Pieza getPieza(int columna, int fila) {
         for (Pieza p : piezasBlancas) {
             if (p.getFila() == fila && p.getColumna() == columna) return p;
         }
@@ -162,7 +165,7 @@ public class Tablero {
 
     public boolean agregarPieza(Pieza pieza, Color color, int columna, int fila){
         boolean estaAgregada = false;
-        if (pieza != null && (color == Color.BLANCO || color == Color.NEGRO) && pieza.validaPosicion){
+        if (pieza != null && (color == Color.BLANCO || color == Color.NEGRO) && pieza.validaPosicion(columna, fila)){
             if (color ==  Color.BLANCO){
                 this.piezasBlancas.add(pieza);
             }else{

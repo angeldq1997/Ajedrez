@@ -27,12 +27,24 @@ public class Casilla {
         this.icono = icono;
     }
 
-    public Pieza getPieza() {
-        return pieza;
+    public void setPieza(Pieza pieza){
+        this.pieza = pieza;
+        this.icono = pieza.getIcono();
+        this.estaOcupada = true;
     }
 
-    public void setPieza(Pieza pieza) {
-        this.pieza = pieza;
+    public void unsetPieza(){
+        this.pieza = null;
+        if (this.colorCasilla == Color.BLANCO){
+            this.setIcono('░');
+        }else{
+            this.setIcono('▓');
+        }
+        this.estaOcupada = false;
+    }
+
+    public Pieza getPieza() {
+        return pieza;
     }
 
     public Color getColorCasilla() {
@@ -49,11 +61,5 @@ public class Casilla {
 
     public void setEstaOcupada(boolean estaOcupada) {
         this.estaOcupada = estaOcupada;
-    }
-
-    public void definirPieza(Pieza pieza){
-        this.pieza = pieza;
-        this.icono = pieza.getForma();
-        this.estaOcupada = true;
     }
 }

@@ -3,7 +3,7 @@ import modelo.*;
 
 public class Caballo extends Pieza implements Saltadora {
     public Caballo(int columna, int fila, Color color) {
-        super(columna, fila, color);
+        super(columna, fila, color, 3);
         this.tipoPieza = TipoPieza.CABALLO;
     }
 
@@ -23,7 +23,7 @@ public class Caballo extends Pieza implements Saltadora {
     }
 
     public String toString() {
-        if (this.getColor() == Color.BLANCA) {
+        if (this.getColor() == Color.BLANCO) {
             return "♘";
         } else {
             return "♞";
