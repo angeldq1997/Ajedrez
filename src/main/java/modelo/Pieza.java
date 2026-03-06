@@ -8,31 +8,35 @@ public abstract class Pieza implements Serializable {
     private Color color;
     private char icono;
     protected TipoPieza tipoPieza;
+    private int puntos;
 
-    public Pieza(int fila, int columna, Color color) {
-        validaPosicion(fila, columna);
+    public Pieza(int columna, int fila, Color color, int puntos) {
+        validaPosicion(columna, fila);
         if (color == null){
             throw new IllegalArgumentException ("Debes de introducir un color");
         }
-        this.fila = fila;
         this.columna = columna;
+        this.fila = fila;
         this.color = color;
+        this.puntos = puntos;
     }
 
-    protected void validaPosicion (int fila, int columna){
+    protected boolean validaPosicion (int columna, int fila){
         if (fila < 0 || fila > 7 || columna < 0 || columna > 7){
             throw new IllegalArgumentException("Debes de introducir un número entre 0-7");
+        }else{
+            return true;
         }
     }
 
     /**
      * Método con el que podemos definir en cada pieza que herede, la manera de moverse en el tablero
+     * @param columnaDestino El número de la columna donde queremos mover la pieza
      * @param filaDestino El número de la fila donde queremos mover la pieza
-     * @param columnaDestina El número de la columna donde queremos mover la pieza
      * @param tablero Tablero donde se mueve la pieza
      * @return Devuelve un booleano
      */
-    public abstract boolean puedeMover (int filaDestino, int columnaDestina, Tablero tablero);
+    public abstract boolean puedeMover (int columnaDestino, int filaDestino, Tablero tablero);
 
     /**
      * Método con el que podemos hacer una copia de la pieza
@@ -44,7 +48,9 @@ public abstract class Pieza implements Serializable {
      * Método con el que podemos obtener los puntos de una pieza
      * @return Devuelve los puntos de una pieza
      */
-    public abstract int getPuntos();
+    public int getPuntos(){
+        return this.puntos;
+    }
 
     public abstract String toString ();
 
@@ -54,7 +60,7 @@ public abstract class Pieza implements Serializable {
      * @param columnaDestino El número de la columna donde queremos mover a la pieza en el tablero
      * @param tablero Tablero donde se mueve la pieza
      */
-    public void mover (int filaDestino, int columnaDestino, Tablero tablero){
+    public void mover (int columnaDestino, int filaDestino, Tablero tablero){
         validaPosicion(filaDestino, columnaDestino);
         if (!puedeMover(filaDestino, columnaDestino, tablero)){
             throw new IllegalArgumentException("Movimiento no permitido para esta pieza");
@@ -70,8 +76,8 @@ public abstract class Pieza implements Serializable {
      * @param tablero Tablero donde se mueve la pieza
      * @return Devuelve si puede atacar o no
      */
-    public boolean puedeAtacar (int filaDestino, int columnaDestino, Tablero tablero){
-        return puedeMover(filaDestino, columnaDestino, tablero);
+    public boolean puedeAtacar (int columnaDestino, int filaDestino, Tablero tablero){
+        return puedeMover(columnaDestino, filaDestino, tablero);
     }
 
     public int getColumna() {
@@ -127,5 +133,10 @@ public abstract class Pieza implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(columna, fila, color, tipoPieza);
+    }
+
+    public void asignarCasilla(Casilla[][] casillas) {
+        Casilla c = casillas[this.getColumna()][this.getFila()];
+        c.setPieza(this);
     }
 }

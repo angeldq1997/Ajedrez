@@ -5,8 +5,9 @@ import modelo.Tablero;
 import modelo.TipoPieza;
 
 public class Reina extends Pieza {
+
     public Reina(int fila, int columna, Color color) {
-        super(columna, fila, color);
+        super(columna, fila, color, 9);
         this.tipoPieza = TipoPieza.REINA;
     }
 
@@ -67,13 +68,8 @@ public class Reina extends Pieza {
         return new Reina(getFila(), getColumna(), getColor());
     }
 
-    @Override
-    public int getPuntos() {
-        return 9;
-    }
-
     public String toString() {
-        if (this.getColor() == Color.BLANCA) {
+        if (this.getColor() == Color.BLANCO) {
             return "♕";
         } else {
             return "♛";

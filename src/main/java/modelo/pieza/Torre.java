@@ -7,7 +7,7 @@ import modelo.TipoPieza;
 
 public class Torre extends Pieza {
     public Torre(int columna, int fila, Color color) {
-        super(columna, fila, color);
+        super(columna, fila, color, 5);
         this.tipoPieza = TipoPieza.TORRE;
     }
 
@@ -27,7 +27,7 @@ public class Torre extends Pieza {
     }
 
     public String toString() {
-        if (this.getColor() == Color.BLANCA) {
+        if (this.getColor() == Color.BLANCO) {
             return "♖";
         } else {
             return "♜";
