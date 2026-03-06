@@ -149,4 +149,14 @@ public class Tablero {
     public Tablero copiarTablero(){
         return new Tablero(this.piezasBlancas, this.piezasNegras, this.piezasEliminadas,this.casillas);
     }
+
+    public void resetearTablero(){
+        this.piezasEliminadas = new ArrayList<Pieza>();
+        this.casillas = new Casilla[8][8];
+
+        this.piezasNegras = new ArrayList<>();
+        colocarPiezasArriba(Color.NEGRO, this.piezasNegras);
+        this.piezasBlancas = new ArrayList<>();
+        colocarPiezasAbajo(Color.BLANCO, this.piezasBlancas);
+    }
 }
