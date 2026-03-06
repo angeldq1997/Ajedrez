@@ -42,4 +42,15 @@ public class Tablero {
         }
         return null;
     }
+
+    public void vaciarPiezas(){
+        for (Pieza p: this.piezasBlancas){
+            piezasEliminadas.add(p);
+            piezasBlancas.remove(p);
+        }
+        for (Pieza p2: this.piezasNegras){
+            piezasEliminadas.add(p2);
+            piezasNegras.remove(p2);
+        }
+    }
 }
