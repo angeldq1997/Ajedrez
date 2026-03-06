@@ -53,4 +53,8 @@ public class Tablero {
             piezasNegras.remove(p2);
         }
     }
+
+    public Tablero copiarTablero(){
+        return new Tablero(this.piezasBlancas, this.piezasNegras, this.piezasEliminadas,this.casillas);
+    }
 }
