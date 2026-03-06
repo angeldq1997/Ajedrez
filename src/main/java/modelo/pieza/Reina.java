@@ -5,14 +5,6 @@ import modelo.Tablero;
 import modelo.TipoPieza;
 
 public class Reina extends Pieza {
-    public String toString() {
-        if (this.getColor() == Color.BLANCA) {
-            return "♕";
-        } else {
-            return "♛";
-        }
-    }
-
     public Reina(int columna, int fila, Color color) {
         super(columna, fila, color);
         this.tipoPieza = TipoPieza.REINA;
@@ -33,10 +25,11 @@ public class Reina extends Pieza {
         return 9;
     }
 
-    @Override
     public String toString() {
-        return "";
+        if (this.getColor() == Color.BLANCA) {
+            return "♕";
+        } else {
+            return "♛";
+        }
     }
-
-
 }
