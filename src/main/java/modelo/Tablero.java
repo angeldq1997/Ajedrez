@@ -159,4 +159,16 @@ public class Tablero {
         this.piezasBlancas = new ArrayList<>();
         colocarPiezasAbajo(Color.BLANCO, this.piezasBlancas);
     }
+
+    public boolean agregarPieza(Pieza pieza, Color color, int columna, int fila){
+        boolean estaAgregada = false;
+        if (pieza != null && (color == Color.BLANCO || color == Color.NEGRO) && pieza.validaPosicion){
+            if (color ==  Color.BLANCO){
+                this.piezasBlancas.add(pieza);
+            }else{
+                this.piezasNegras.add(pieza);
+            }
+        }
+        return estaAgregada;
+    }
 }
