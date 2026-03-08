@@ -11,13 +11,40 @@ public class Peon extends Pieza {
     }
 
     @Override
-    public boolean puedeMover(int filaDestino, int columnaDestina, Tablero tablero) {
+    public boolean puedeMover(int filaDestino, int columnaDestino, Tablero tablero) {
+        // Calculamos cuanto se mueve el peon
+        int diferenciaFila = filaDestino - getFila();
+        int diferenciaColumna = columnaDestino - getColumna();
+
+        int direccion; // Las piezas blancas suben (-1), las negras bajan (1)
+        if (getColor() == Color.BLANCO) {
+            direccion = -1;
+        } else {
+            direccion = 1;
+        }
+
+        // Movimiento normal del peon, 1 hacia delante
+        if (diferenciaColumna == 0 && diferenciaFila == direccion) {
+            if (!tablero.estaOcupado(columnaDestino, filaDestino)) {
+                return true;
+            }
+        }
+
+        // Movimiento doble del inicio
+        if (diferenciaColumna == 0 && diferenciaFila == 2 * direccion) {
+            if ((getColor() == Color.BLANCO && getFila() == 6) || (getColor() == Color.NEGRO && getFila() == 1)) {
+                int filaIntermedia = getFila() + direccion;
+                if (!tablero.estaOcupado(columnaDestino, filaIntermedia) && !tablero.estaOcupado(columnaDestino, filaDestino)) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
     @Override
     public Pieza copiar() {
-        return null;
+        return new Peon(getColumna(), getFila(), getColor());
     }
 
     @Override
