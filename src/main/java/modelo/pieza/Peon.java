@@ -34,9 +34,34 @@ public class Peon extends Pieza {
         if (diferenciaColumna == 0 && diferenciaFila == 2 * direccion) {
             if ((getColor() == Color.BLANCO && getFila() == 6) || (getColor() == Color.NEGRO && getFila() == 1)) {
                 int filaIntermedia = getFila() + direccion;
-                if (!tablero.estaOcupado(columnaDestino, filaIntermedia) && !tablero.estaOcupado(columnaDestino, filaDestino)) {
+                if (!tablero.estaOcupado(columnaDestino, filaIntermedia) &&
+                        !tablero.estaOcupado(columnaDestino, filaDestino)) {
                     return true;
                 }
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean puedeAtacar(int filaDestino, int columnaDestino, Tablero tablero) {
+        // Solo puede atacar 1 casilla diagonal hacia delante
+        int diferenciaFila = filaDestino - getFila();
+        int diferenciaColumna = columnaDestino - getColumna();
+
+        int direccion;
+        if (getColor() == Color.BLANCO) {
+            direccion = -1;
+        } else {
+            direccion = 1;
+        }
+
+        // Verifica que sea diagonal de 1 paso
+        if (Math.abs(diferenciaColumna) == 1 && diferenciaFila == direccion) {
+            // La casilla debe estar ocupada por una pieza contraria
+            Pieza piezaDestino = tablero.getPieza(columnaDestino, filaDestino);
+            if (piezaDestino != null && piezaDestino.getColor() != getColor()) {
+                return true;
             }
         }
         return false;
