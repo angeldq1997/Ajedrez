@@ -60,7 +60,7 @@ public abstract class Pieza implements Serializable {
      * @param columnaDestino El número de la columna donde queremos mover a la pieza en el tablero
      * @param tablero Tablero donde se mueve la pieza
      */
-    public void mover (int columnaDestino, int filaDestino, Tablero tablero){
+    public void mover (int filaDestino, int columnaDestino, Tablero tablero){
         validaPosicion(filaDestino, columnaDestino);
         if (!puedeMover(filaDestino, columnaDestino, tablero)){
             throw new IllegalArgumentException("Movimiento no permitido para esta pieza");
