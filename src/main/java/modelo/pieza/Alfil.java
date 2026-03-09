@@ -7,21 +7,38 @@ import modelo.TipoPieza;
 import java.util.Scanner;
 
 public class Alfil extends Pieza {
+    public String toString() {
+        if (this.getColor() == Color.BLANCA) {
+            return "♗";
+        } else {
+            return "♝";
+        }
+    }
 
     public Alfil(int columna, int fila, Color color) {
-        super(columna, fila, color, 3, TipoPieza.ALFIL);
+        super(columna, fila, color);
+        this.tipoPieza = TipoPieza.ALFIL;
     }
 
 
     @Override
-    public boolean atacar() {
+    public boolean puedeMover(int filaDestino, int columnaDestina, Tablero tablero) {
         return false;
     }
 
     @Override
-    public boolean mover() {
+    public Pieza copiar() {
+        return null;
+    }
 
-        return false;
+    @Override
+    public int getPuntos() {
+        return 5;
+    }
+
+    @Override
+    public String toString() {
+        return "";
     }
 
     public boolean movimiento(int nuevafila, int nuevacolumna){
