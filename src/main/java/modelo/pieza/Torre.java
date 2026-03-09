@@ -9,21 +9,26 @@ public class Torre extends Pieza {
     public Torre(int columna, int fila, Color color) {
         super(columna, fila, color, 5);
         this.tipoPieza = TipoPieza.TORRE;
+        if (this.getColor() == Color.BLANCO) {
+            this.setIcono('♖');
+        } else {
+            this.setIcono('♜');
+        }
     }
 
     @Override
-    public boolean puedeMover(int filaDestino, int columnaDestina, Tablero tablero) {
-        return false;
+    public boolean puedeMover(int columnaDestino, int filaDestino) {
+        boolean puedeMover = false;
+        if (this.validaPosicion(columnaDestino, filaDestino)){
+            if(columnaDestino == this.getColumna() || filaDestino == this.getFila())
+                puedeMover = true;
+        }
+        return puedeMover;
     }
 
     @Override
     public Pieza copiar() {
         return null;
-    }
-
-    @Override
-    public int getPuntos() {
-        return 5;
     }
 
     public String toString() {
