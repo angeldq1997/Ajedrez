@@ -8,6 +8,11 @@ public class Rey extends Pieza {
     public Rey(int columna, int fila, Color color) {
         super(columna, fila, color, 100);
         this.tipoPieza = TipoPieza.REY;
+        if (this.getColor() == Color.BLANCO) {
+            this.setIcono('♔');
+        } else {
+            this.setIcono('♚');
+        }
     }
 
     /**
@@ -19,36 +24,14 @@ public class Rey extends Pieza {
      */
 
     @Override
-    public boolean puedeMover(int filaDestino, int columnaDestina, Tablero tablero) {
-        int diferenciaFila = Math.abs(filaDestino - this.getFila());
-        int diferenciaColumna = Math.abs(columnaDestina - this.getColumna());
-
-        if (diferenciaFila == 0 && diferenciaColumna == 0) { //Si no se mueve (destino igual a origen), es falso
-            return false;
-        }
-
-
-        if (diferenciaFila <= 1 && diferenciaColumna <= 1) { // El Rey solo puede mover 1 casilla en cualquier dirección
-
-            Pieza destino = tablero.getPieza(filaDestino, columnaDestina);
-            if (destino != null && destino.getColor() == this.getColor()) { //Comprobamos si en el destino hay una pieza del mismo color
-                return false;
-            }
-
-            return true; // Si pasa los filtros, el movimiento es válido
-        }
-
-        return false;
+    public boolean puedeMover(int columnaDestino, int filaDestino) {
+    return ((Math.abs(filaDestino-getFila())<=1) && (Math.abs(columnaDestino-getColumna()) <=1));
     }
+     
 
     @Override
     public Pieza copiar() {
         return new Rey(this.getFila(), this.getColumna(), this.getColor()); // Creamos un nuevo Rey con los mismos datos actuales
-    }
-
-    @Override
-    public int getPuntos() {
-        return 100;
     }
 
     public String toString() {
