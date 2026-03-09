@@ -55,21 +55,6 @@ public abstract class Pieza implements Serializable {
         return this.puntos;
     }
 
-    public abstract String toString ();
-
-    /**
-     * Método con el que movemos a una pieza de sitio en el tablero
-     * @param filaDestino El número de la fila donde queremos mover a la pieza en el tablero
-     * @param columnaDestino El número de la columna donde queremos mover a la pieza en el tablero
-     */
-    public void mover (int columnaDestino, int filaDestino){
-        validaPosicion(filaDestino, columnaDestino);
-        if (!puedeMover(filaDestino, columnaDestino))
-            throw new IllegalArgumentException("Movimiento no permitido para esta pieza");
-        this.fila = filaDestino;
-        this.columna = columnaDestino;
-    }
-
     /**
      * Método con el que podemos atacar a otra pieza que esté en el tablero
      * @param filaDestino El número de la fila donde queremos mover a la pieza en el tablero
@@ -140,4 +125,6 @@ public abstract class Pieza implements Serializable {
         Casilla c = casillas[this.getFila()][this.getColumna()];
         c.setPieza(this);
     }
+  
+    public abstract String toString ();
 }
