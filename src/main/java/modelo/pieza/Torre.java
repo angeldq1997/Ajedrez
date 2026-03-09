@@ -9,6 +9,11 @@ public class Torre extends Pieza {
     public Torre(int columna, int fila, Color color) {
         super(columna, fila, color, 5);
         this.tipoPieza = TipoPieza.TORRE;
+        if (this.getColor() == Color.BLANCO) {
+            this.setIcono('♖');
+        } else {
+            this.setIcono('♜');
+        }
     }
 
     /**
@@ -20,46 +25,17 @@ public class Torre extends Pieza {
      */
 
     @Override
-    public boolean puedeMover(int filaDestino, int columnaDestina, Tablero tablero) {
-        if (getFila() != filaDestino && getColumna() != columnaDestina) { //Verificamos que se mueva en línea recta (o cambia fila o cambia columna)
-        return false;
-    }
-        if (getFila() == filaDestino && getColumna() == columnaDestina) { //No puede quedarse en la misma casilla
-            return false;
+    public boolean puedeMover (int columnaDestino, int filaDestino) {
+        boolean puedeMover = false;
+        if(columnaDestino == this.getColumna() || filaDestino == this.getFila()) {
+           puedeMover = true;
         }
-
-        int pasoFila = Integer.compare(filaDestino, getFila()); // Calculamos la dirección del paso (-1, 0 o 1)
-        int pasoColumna = Integer.compare(columnaDestina, getColumna());
-
-
-        int f = getFila() + pasoFila; //Bucle para comprobar si hay piezas en el camino
-        int c = getColumna() + pasoColumna;
-
-        while (f != filaDestino || c != columnaDestina) {
-            if (tablero.getPieza(f, c) != null) {
-                return false; // Hay una pieza bloqueando el camino
-            }
-            f += pasoFila;
-            c += pasoColumna;
-        }
-
-        Pieza destino = tablero.getPieza(filaDestino, columnaDestina); //Comprobar que en el destino no haya una pieza del mismo color
-        if (destino != null && destino.getColor() == this.getColor()) {
-            return false;
-        }
-
-        return true;
-    }
-
-
-    @Override
-    public Pieza copiar() {
-        return new Torre(this.getFila(), this.getColumna(), this.getColor());
+        return puedeMover;
     }
 
     @Override
-    public int getPuntos() {
-        return 5;
+    public Pieza copiar () {
+        return new Torre (this.getFila(), this.getColumna(), this.getColor()) ;
     }
 
     public String toString() {
