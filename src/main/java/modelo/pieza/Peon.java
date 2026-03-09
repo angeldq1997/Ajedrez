@@ -13,6 +13,13 @@ public class Peon extends Pieza {
             this.setIcono('♟');
     }
 
+    /**
+     * Método con el que hacemos que el peon se mueva, comprobando todo
+     * @param filaDestino El número de la columna donde queremos mover la pieza
+     * @param columnaDestino El número de la fila donde queremos mover la pieza
+     * @param tablero Tablero donde se mueve la pieza
+     * @return Devuelve si el movimiento es válido (true) o si no lo es (false)
+     */
     @Override
     public boolean puedeMover(int filaDestino, int columnaDestino, Tablero tablero) {
         // Calculamos cuanto se mueve el peon
