@@ -10,8 +10,6 @@ public class Alfil extends Pieza {
         this.tipoPieza = TipoPieza.ALFIL;
     }
 
-    int nuevacolumna;
-    int nuevafila;
     @Override
     public boolean puedeMover(int filaDestino, int columnaDestina, Tablero tablero) {
         return false;
@@ -22,11 +20,6 @@ public class Alfil extends Pieza {
         return null;
     }
 
-    @Override
-    public int getPuntos() {
-        return 5;
-    }
-
     public String toString() {
         if (this.getColor() == Color.BLANCO) {
             return "♗";
@@ -35,18 +28,18 @@ public class Alfil extends Pieza {
         }
     }
 
-    public int pidemovimiento() {
+    public boolean movimiento(int nuevafila, int nuevacolumna){
         boolean posible = false;
-        while (!posible) {
-            if (!Tablero.estaOcupado(nuevafila, nuevacolumna)) {
-                setColumna(nuevacolumna);
-                setFila(nuevafila);
-                posible = true;
-            } else {
-                System.out.println("Moviento invalido.");
-                posible = false;
-            }
+        int diferenciafilas = nuevafila - this.getFila();
+        int diferenciacolumnas = nuevacolumna -this.getColumna();
+        if (Math.abs(diferenciafilas) == Math.abs(diferenciacolumnas)&& Tablero.estaOcupado(nuevacolumna,nuevafila)){
+            this.setFila(nuevafila);
+            this.setColumna(nuevacolumna);
+            posible = true;
+        }else{
+            System.out.println("Movimiento invalido.");
+            posible = false;
         }
-        return 0;
+        return posible;
     }
 }
