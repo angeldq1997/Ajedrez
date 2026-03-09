@@ -12,8 +12,7 @@ public class Alfil extends Pieza {
         super(columna, fila, color, 3, TipoPieza.ALFIL);
     }
 
-    int nuevacolumna;
-    int nuevafila;
+
     @Override
     public boolean atacar() {
         return false;
@@ -24,18 +23,18 @@ public class Alfil extends Pieza {
 
         return false;
     }
-    public int pidemovimiento() {
+
+    public boolean movimiento(int nuevafila, int nuevacolumna){
         boolean posible = false;
-        while (!posible) {
-            if (!Tablero.estaOcupado(nuevafila, nuevacolumna)) {
-                setColumna(nuevacolumna);
-                setFila(nuevafila);
-                posible = true;
-            } else {
-                System.out.println("Moviento invalido.");
-                posible = false;
-            }
+        int diferenciafilas = nuevafila - getFila();
+        int diferenciacolumnas = nuevacolumna -getColumna();
+        if (Math.abs(diferenciafilas) == Math.abs(diferenciacolumnas)&& Tablero.estaOcupado(nuevafila,nuevacolumna)){
+            this.setFila(nuevafila);
+            this.setColumna(nuevacolumna);
+        }else{
+            System.out.println("Movimiento invalido.");
+            posible = false;
         }
-        return 0;
+        return posible;
     }
 }
