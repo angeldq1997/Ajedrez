@@ -4,26 +4,23 @@ import modelo.Pieza;
 import modelo.Tablero;
 import modelo.TipoPieza;
 
-import java.util.Scanner;
-
 public class Alfil extends Pieza {
-    public String toString() {
-        if (this.getColor() == Color.BLANCA) {
-            return "♗";
+
+    public Alfil(int columna, int fila, Color color) {
+        super(columna, fila, color, 3);
+        this.tipoPieza = TipoPieza.ALFIL;
+        if (this.getColor() == Color.BLANCO) {
+            this.setIcono('♗');
         } else {
-            return "♝";
+            this.setIcono('♝');
         }
     }
 
-    public Alfil(int columna, int fila, Color color) {
-        super(columna, fila, color);
-        this.tipoPieza = TipoPieza.ALFIL;
-    }
-
-    int nuevacolumna;
-    int nuevafila;
     @Override
-    public boolean puedeMover(int filaDestino, int columnaDestina, Tablero tablero) {
+    public boolean puedeMover(int filaDestino, int columnaDestino) {
+        if( Math.abs(filaDestino - this.getFila()) == Math.abs(columnaDestino - getColumna()) ){
+            return true;
+        }
         return false;
     }
 
@@ -32,27 +29,24 @@ public class Alfil extends Pieza {
         return null;
     }
 
-    @Override
-    public int getPuntos() {
-        return 5;
+    public String toString() {
+        if (this.getColor() == Color.BLANCO) {
+            return "♗";
+        } else {
+            return "♝";
+        }
     }
 
-    @Override
-    public String toString() {
-        return "";
-    }
-    public int pidemovimiento() {
+    public boolean movimiento(int nuevafila, int nuevacolumna){
         boolean posible = false;
-        while (!posible) {
-            if (!Tablero.estaOcupado(nuevafila, nuevacolumna)) {
-                setColumna(nuevacolumna);
-                setFila(nuevafila);
-                posible = true;
-            } else {
-                System.out.println("Moviento invalido.");
-                posible = false;
-            }
+        int diferenciafilas = nuevafila - getFila();
+        int diferenciacolumnas = nuevacolumna -getColumna();
+        if (Math.abs(diferenciafilas) == Math.abs(diferenciacolumnas)&& Tablero.estaOcupado(nuevafila,nuevacolumna)){
+            posible = true;
+        }else{
+            System.out.println("Movimiento invalido.");
+            posible = false;
         }
-        return 0;
+        return posible;
     }
 }
