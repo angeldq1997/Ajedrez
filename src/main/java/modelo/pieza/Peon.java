@@ -46,6 +46,13 @@ public class Peon extends Pieza {
         return false;
     }
 
+    /**
+     * Método sobreescrito con el que podemos atacar con el peon
+     * @param filaDestino El número de la columna donde queremos mover a la pieza en el tablero
+     * @param columnaDestino El número de la fila donde queremos mover a la pieza en el tablero
+     * @param tablero Tablero donde se mueve la pieza
+     * @return Devuelve si el peon puede atacar (true) o no puede atacar (false)
+     */
     @Override
     public boolean puedeAtacar(int filaDestino, int columnaDestino, Tablero tablero) {
         // Solo puede atacar 1 casilla diagonal hacia delante
