@@ -39,11 +39,9 @@ public class Alfil extends Pieza {
 
     public boolean movimiento(int nuevafila, int nuevacolumna){
         boolean posible = false;
-        int diferenciafilas = nuevafila - this.getFila();
-        int diferenciacolumnas = nuevacolumna -this.getColumna();
-        if (Math.abs(diferenciafilas) == Math.abs(diferenciacolumnas)&& Tablero.estaOcupado(nuevacolumna,nuevafila)){
-            this.setFila(nuevafila);
-            this.setColumna(nuevacolumna);
+        int diferenciafilas = nuevafila - getFila();
+        int diferenciacolumnas = nuevacolumna -getColumna();
+        if (Math.abs(diferenciafilas) == Math.abs(diferenciacolumnas)&& Tablero.estaOcupado(nuevafila,nuevacolumna)){
             posible = true;
         }else{
             System.out.println("Movimiento invalido.");
