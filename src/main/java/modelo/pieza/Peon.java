@@ -1,13 +1,16 @@
 package modelo.pieza;
 import modelo.Color;
 import modelo.Pieza;
-import modelo.Tablero;
 import modelo.TipoPieza;
 
 public class Peon extends Pieza {
     public Peon(int columna, int fila, Color color) {
       super(columna, fila, color, 1);
       this.tipoPieza = TipoPieza.PEON;
+        if (this.getColor() == Color.BLANCO)
+            this.setIcono('♙');
+        else
+            this.setIcono('♟');
     }
 
     @Override
@@ -84,5 +87,4 @@ public class Peon extends Pieza {
             return "♟";
         }
     }
-
 }

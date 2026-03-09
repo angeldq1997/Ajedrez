@@ -6,9 +6,14 @@ import modelo.TipoPieza;
 
 public class Reina extends Pieza {
 
-    public Reina(int fila, int columna, Color color) {
+    public Reina(int columna, int fila, Color color) {
         super(columna, fila, color, 9);
         this.tipoPieza = TipoPieza.REINA;
+        if (this.getColor() == Color.BLANCO) {
+            this.setIcono('♕');
+        } else {
+            this.setIcono('♛');
+        }
     }
 
     /**
