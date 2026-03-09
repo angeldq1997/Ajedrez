@@ -8,21 +8,26 @@ public class Rey extends Pieza {
     public Rey(int columna, int fila, Color color) {
         super(columna, fila, color, 100);
         this.tipoPieza = TipoPieza.REY;
+        if (this.getColor() == Color.BLANCO) {
+            this.setIcono('♔');
+        } else {
+            this.setIcono('♚');
+        }
     }
 
     @Override
-    public boolean puedeMover(int filaDestino, int columnaDestina, Tablero tablero) {
+    public boolean puedeMover(int columnaDestino, int filaDestino) {
+        if (this.validaPosicion(columnaDestino, filaDestino)){
+            if((Math.abs(filaDestino-getFila())<=1) && (Math.abs(columnaDestino-getColumna()) <=1)) {
+                return true;
+            }
+        }
         return false;
     }
 
     @Override
     public Pieza copiar() {
         return null;
-    }
-
-    @Override
-    public int getPuntos() {
-        return 100;
     }
 
     public String toString() {

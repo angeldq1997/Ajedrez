@@ -1,4 +1,6 @@
 package modelo;
+import modelo.pieza.Caballo;
+
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -13,7 +15,7 @@ public abstract class Pieza implements Serializable {
     public Pieza(int columna, int fila, Color color, int puntos) {
         validaPosicion(columna, fila);
         if (color == null){
-            throw new IllegalArgumentException ("Debes de introducir un color");
+            throw new IllegalArgumentException ("Debes de introducir blanco o negro");
         }
         this.columna = columna;
         this.fila = fila;
@@ -21,28 +23,29 @@ public abstract class Pieza implements Serializable {
         this.puntos = puntos;
     }
 
-    protected boolean validaPosicion (int columna, int fila){
-        if (fila < 0 || fila > 7 || columna < 0 || columna > 7){
+    public boolean validaPosicion (int columna, int fila){
+        if (fila < 0 || fila > 7 || columna < 0 || columna > 7)
             throw new IllegalArgumentException("Debes de introducir un número entre 0-7");
-        }else{
+        else
             return true;
-        }
     }
 
     /**
      * Método con el que podemos definir en cada pieza que herede, la manera de moverse en el tablero
      * @param columnaDestino El número de la columna donde queremos mover la pieza
      * @param filaDestino El número de la fila donde queremos mover la pieza
-     * @param tablero Tablero donde se mueve la pieza
      * @return Devuelve un booleano
      */
-    public abstract boolean puedeMover (int columnaDestino, int filaDestino, Tablero tablero);
+    public abstract boolean puedeMover (int columnaDestino, int filaDestino);
 
     /**
      * Método con el que podemos hacer una copia de la pieza
      * @return Devuelve la copia de la pieza
      */
-    public abstract Pieza copiar ();
+    public Pieza copiar() {
+        return null;
+        //return new <Pieza>(this.getColumna(), this.getFila(), this.getColor());
+    }
 
     /**
      * Método con el que podemos obtener los puntos de una pieza
@@ -58,13 +61,11 @@ public abstract class Pieza implements Serializable {
      * Método con el que movemos a una pieza de sitio en el tablero
      * @param filaDestino El número de la fila donde queremos mover a la pieza en el tablero
      * @param columnaDestino El número de la columna donde queremos mover a la pieza en el tablero
-     * @param tablero Tablero donde se mueve la pieza
      */
-    public void mover (int columnaDestino, int filaDestino, Tablero tablero){
+    public void mover (int columnaDestino, int filaDestino){
         validaPosicion(filaDestino, columnaDestino);
-        if (!puedeMover(filaDestino, columnaDestino, tablero)){
+        if (!puedeMover(filaDestino, columnaDestino))
             throw new IllegalArgumentException("Movimiento no permitido para esta pieza");
-        }
         this.fila = filaDestino;
         this.columna = columnaDestino;
     }
@@ -77,7 +78,7 @@ public abstract class Pieza implements Serializable {
      * @return Devuelve si puede atacar o no
      */
     public boolean puedeAtacar (int columnaDestino, int filaDestino, Tablero tablero){
-        return puedeMover(columnaDestino, filaDestino, tablero);
+        return puedeMover(columnaDestino, filaDestino);
     }
 
     public int getColumna() {
@@ -136,7 +137,7 @@ public abstract class Pieza implements Serializable {
     }
 
     public void asignarCasilla(Casilla[][] casillas) {
-        Casilla c = casillas[this.getColumna()][this.getFila()];
+        Casilla c = casillas[this.getFila()][this.getColumna()];
         c.setPieza(this);
     }
 }
