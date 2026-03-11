@@ -17,11 +17,10 @@ public class Peon extends Pieza {
      * Método con el que hacemos que el peon se mueva, comprobando todo
      * @param filaDestino El número de la columna donde queremos mover la pieza
      * @param columnaDestino El número de la fila donde queremos mover la pieza
-     * @param tablero Tablero donde se mueve la pieza
      * @return Devuelve si el movimiento es válido (true) o si no lo es (false)
      */
     @Override
-    public boolean puedeMover(int filaDestino, int columnaDestino, Tablero tablero) {
+    public boolean puedeMover(int filaDestino, int columnaDestino) {
         // Calculamos cuanto se mueve el peon
         int diferenciaFila = filaDestino - getFila();
         int diferenciaColumna = columnaDestino - getColumna();
@@ -33,22 +32,12 @@ public class Peon extends Pieza {
             direccion = 1;
         }
 
-        // Movimiento normal del peon, 1 hacia delante
-        if (diferenciaColumna == 0 && diferenciaFila == direccion) {
-            if (!tablero.estaOcupado(columnaDestino, filaDestino)) {
-                return true;
-            }
-        }
+        // Movimiento normal, 1 hacia delante
+        if (diferenciaColumna == 0 && diferenciaFila == direccion) return false;
 
-        // Movimiento doble del inicio
-        if (diferenciaColumna == 0 && diferenciaFila == 2 * direccion) {
-            if ((getColor() == Color.BLANCO && getFila() == 6) || (getColor() == Color.NEGRO && getFila() == 1)) {
-                int filaIntermedia = getFila() + direccion;
-                if (!tablero.estaOcupado(columnaDestino, filaIntermedia) &&
-                        !tablero.estaOcupado(columnaDestino, filaDestino)) {
-                    return true;
-                }
-            }
+        // Movimiento inicial doble
+        if (diferenciaColumna == 0 && diferenciaFila == 2 * direccion){
+            if (getColor() == Color.BLANCO && getFila() == 6 || getColor() == Color.NEGRO && getFila() == 1) return true;
         }
         return false;
     }
