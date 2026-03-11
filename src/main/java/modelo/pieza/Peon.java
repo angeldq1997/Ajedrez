@@ -57,11 +57,9 @@ public class Peon extends Pieza {
      * Método sobreescrito con el que podemos atacar con el peon
      * @param filaDestino El número de la columna donde queremos mover a la pieza en el tablero
      * @param columnaDestino El número de la fila donde queremos mover a la pieza en el tablero
-     * @param tablero Tablero donde se mueve la pieza
      * @return Devuelve si el peon puede atacar (true) o no puede atacar (false)
      */
-    @Override
-    public boolean puedeAtacar(int filaDestino, int columnaDestino, Tablero tablero) {
+    public boolean puedeAtacar(int filaDestino, int columnaDestino) {
         // Solo puede atacar 1 casilla diagonal hacia delante
         int diferenciaFila = filaDestino - getFila();
         int diferenciaColumna = columnaDestino - getColumna();
@@ -73,14 +71,7 @@ public class Peon extends Pieza {
             direccion = 1;
         }
 
-        // Verifica que sea diagonal de 1 paso
-        if (Math.abs(diferenciaColumna) == 1 && diferenciaFila == direccion) {
-            // La casilla debe estar ocupada por una pieza contraria
-            Pieza piezaDestino = tablero.getPieza(columnaDestino, filaDestino);
-            if (piezaDestino != null && piezaDestino.getColor() != getColor()) {
-                return true;
-            }
-        }
+        if (diferenciaFila == direccion && diferenciaColumna == 1) return true;
         return false;
     }
 
