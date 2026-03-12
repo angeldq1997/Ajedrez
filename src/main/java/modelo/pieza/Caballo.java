@@ -20,11 +20,4 @@ public class Caballo extends Pieza implements Saltadora {
     public Pieza copiar() {
         return new Caballo(this.getX(), this.getY(), this.getColor());
     }
-
-    public String toString() {
-        if (this.getColor() == Color.BLANCO)
-            return "♘";
-        else
-            return "♞";
-    }
 }

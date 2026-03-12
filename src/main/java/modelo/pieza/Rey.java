@@ -31,12 +31,4 @@ public class Rey extends Pieza {
     public Pieza copiar() {
         return new Rey(this.getX(), this.getY(), this.getColor()); // Creamos un nuevo Rey con los mismos datos actuales
     }
-
-    public String toString() {
-        if (this.getColor() == Color.BLANCO) {
-            return "♔";
-        } else {
-            return "♚";
-        }
-    }
 }

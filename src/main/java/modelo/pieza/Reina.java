@@ -57,12 +57,4 @@ public class Reina extends Pieza {
     public Pieza copiar() {
         return new Reina(getY(), getX(), getColor());
     }
-
-    public String toString() {
-        if (this.getColor() == Color.BLANCO) {
-            return "♕";
-        } else {
-            return "♛";
-        }
-    }
 }

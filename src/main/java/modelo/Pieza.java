@@ -102,5 +102,7 @@ public abstract class Pieza implements Serializable {
         c.setPieza(this);
     }
   
-    public abstract String toString ();
+    public String toString (){
+        return this.getIcono() + " " + this.getX() + " " + this.getY() + " " + this.getColor() + " " + this.getPuntos();
+    }
 }
