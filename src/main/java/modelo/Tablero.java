@@ -285,4 +285,32 @@ public class Tablero {
         }
         return tablero;
     }
+
+    public boolean compruebaPiezasIntermedias(int nuevaFila, int nuevaColumna){
+        boolean posible = false;
+        int comprobacion1 = nuevaFila - fila;
+        int comprobacion2 = nuevaColumna -columna;
+
+        int pasoFila;
+        if (comprobacion1 > 0) pasoFila = 1;
+            else if (comprobacion1 < 0) pasoFila = -1;
+            else pasoFila = 0;
+
+        int pasoColumna;
+            if (comprobacion2 > 0) pasoColumna = 1;
+            else if (comprobacion2 < 0) pasoColumna = -1;
+            else pasoColumna = 0;
+
+        int filaActual = fila + pasoFila;
+        int columnaActual = columna + pasoColumna;
+
+        while (filaActual != nuevaFila || columnaActual != nuevaColumna){
+            if (estaOcupado(filaActual,columnaActual)){
+                posible =  true;
+            }else{
+                filaActual += pasoFila;
+                columnaActual += pasoColumna;
+            }
+            return posible;
+        }
 }
