@@ -1,51 +1,38 @@
 package modelo;
-import modelo.pieza.Caballo;
 
 import java.io.Serializable;
 import java.util.Objects;
 
 public abstract class Pieza implements Serializable {
-    private int columna;
-    private int fila;
+    private int x;
+    private int y;
     private Color color;
     private char icono;
     protected TipoPieza tipoPieza;
     private int puntos;
 
-    public Pieza(int columna, int fila, Color color, int puntos) {
-        validaPosicion(columna, fila);
+    public Pieza(int x, int y, Color color, int puntos) {
         if (color == null){
             throw new IllegalArgumentException ("Debes de introducir blanco o negro");
         }
-        this.columna = columna;
-        this.fila = fila;
+        this.x = x;
+        this.y = y;
         this.color = color;
         this.puntos = puntos;
     }
 
-    public boolean validaPosicion (int columna, int fila){
-        if (fila < 0 || fila > 7 || columna < 0 || columna > 7)
-            throw new IllegalArgumentException("Debes de introducir un número entre 0-7");
-        else
-            return true;
-    }
-
     /**
      * Método con el que podemos definir en cada pieza que herede, la manera de moverse en el tablero
-     * @param columnaDestino El número de la columna donde queremos mover la pieza
-     * @param filaDestino El número de la fila donde queremos mover la pieza
+     * @param xDestino El número de la columna donde queremos mover la pieza
+     * @param yDestino El número de la fila donde queremos mover la pieza
      * @return Devuelve un booleano
      */
-    public abstract boolean puedeMover (int columnaDestino, int filaDestino);
+    public abstract boolean puedeMover (int xDestino, int yDestino);
 
     /**
      * Método con el que podemos hacer una copia de la pieza
-     * @return Devuelve la copia de la pieza
      */
-    public Pieza copiar() {
-        return null;
-        //return new <Pieza>(this.getColumna(), this.getFila(), this.getColor());
-    }
+    public abstract Pieza copiar();
 
     /**
      * Método con el que podemos obtener los puntos de una pieza
@@ -55,31 +42,20 @@ public abstract class Pieza implements Serializable {
         return this.puntos;
     }
 
-    /**
-     * Método con el que podemos atacar a otra pieza que esté en el tablero
-     * @param filaDestino El número de la fila donde queremos mover a la pieza en el tablero
-     * @param columnaDestino El número de la columna donde queremos mover a la pieza en el tablero
-     * @param tablero Tablero donde se mueve la pieza
-     * @return Devuelve si puede atacar o no
-     */
-    public boolean puedeAtacar (int columnaDestino, int filaDestino, Tablero tablero){
-        return puedeMover(columnaDestino, filaDestino);
+    public int getX() {
+        return this.x;
     }
 
-    public int getColumna() {
-        return this.columna;
+    public void setX(int x) {
+        this.x = x;
     }
 
-    public void setColumna(int columna) {
-        this.columna = columna;
+    public int getY() {
+        return this.y;
     }
 
-    public int getFila() {
-        return this.fila;
-    }
-
-    public void setFila(int fila) {
-        this.fila = fila;
+    public void setY(int y) {
+        this.y = y;
     }
 
     public Color getColor() {
@@ -110,19 +86,19 @@ public abstract class Pieza implements Serializable {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Pieza pieza = (Pieza) o;
-        return this.columna == pieza.columna &&
-                this.fila == pieza.fila &&
+        return this.x == pieza.x &&
+                this.y == pieza.y &&
                 this.color == pieza.color &&
                 this.tipoPieza == pieza.tipoPieza;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(columna, fila, color, tipoPieza);
+        return Objects.hash(x, y, color, tipoPieza);
     }
 
     public void asignarCasilla(Casilla[][] casillas) {
-        Casilla c = casillas[this.getFila()][this.getColumna()];
+        Casilla c = casillas[this.getX()][this.getY()];
         c.setPieza(this);
     }
   

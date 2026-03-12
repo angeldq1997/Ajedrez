@@ -10,37 +10,56 @@ public class ControladorTablero {
         this.tableroActual = tableroActual;
     }
 
-    /**
-     * Método con el que movemos una pieza en el tablero, con todas las comprobaciones
-     * @param columnaDestino Columna donde queremos mover la pieza
-     * @param filaDestino Fila donde queremos mover la pieza
-     * @param pieza Pieza que queremos mover
-     */
-    public void moverPieza(int columnaDestino, int filaDestino, Pieza pieza){
-
-        Casilla cDest = this.tableroActual.getCasillas()[columnaDestino][filaDestino];
-
-        if (this.tableroActual.estaEnLimites(columnaDestino, filaDestino)){
-            if(pieza.puedeMover(columnaDestino, filaDestino)) {
-                if (cDest.estaOcupada()) {
-                    if (this.tableroActual.hayReyEnemigoOPiezaMismoColor(columnaDestino, filaDestino, pieza)) {
-                        if (pieza.getColor() == Color.BLANCO) {
-                            this.tableroActual.getPiezasBlancas().remove(this.tableroActual.getPiezasBlancas().get(this.tableroActual.posicionPieza(cDest.getPieza())));
-                        } else {
-                            this.tableroActual.getPiezasNegras().remove(this.tableroActual.getPiezasNegras().get(this.tableroActual.posicionPieza(cDest.getPieza())));
-                        }
-                        cDest.unsetPieza();
-                    }
-                }
+    public void moverPieza(int xDestino, int yDestino, Pieza pieza){
+        if (!this.tableroActual.estaEnLimites(xDestino, yDestino)){
+            VistaTablero.mostrarError("Fuera de límites.");
+        }
+        if (pieza != null && !pieza.puedeMover(xDestino, yDestino)){
+            throw new IllegalArgumentException("ERROR: Fuera de las casillas disponibles de movimiento.");
+        }
+        if (!(pieza instanceof Saltadora)){
+            if(tableroActual.hayPiezasIntermedias(pieza.getX(), pieza.getY(), xDestino, yDestino)) {
+                throw new IllegalArgumentException("ERROR: Hay una pieza en medio del camino.");
             }
         }
-        pieza.setColumna(columnaDestino);
-        pieza.setFila(filaDestino);
 
-        cDest.setPieza(pieza);
-        this.tableroActual.getCasillas()[pieza.getColumna()][pieza.getFila()].unsetPieza();
+        Casilla cInicio = tableroActual.getCasillas()[pieza.getX()][pieza.getY()];
+        Casilla cDest = tableroActual.getCasillas()[xDestino][yDestino];
+
+        if (tableroActual.noHayReyEnemigoOPiezaMismoColor(xDestino, yDestino, pieza)){
+                if (cDest.estaOcupada()) {
+                    //CASILLA DESTINO ESTÁ OCUPADA POR ENEMIGO
+                    eliminarPieza(cDest.getPieza());
+
+                    cInicio.unsetPieza();
+                    cDest.unsetPieza();
+                    cDest.setPieza(pieza);
+                    pieza.setX(xDestino);
+                    pieza.setY(yDestino);
+                } else {
+                    //CUANDO ESTÁ VACÍA LA CASILLA DESTINO
+                    cInicio.unsetPieza();
+                    cDest.setPieza(pieza);
+                    pieza.setX(xDestino);
+                    pieza.setY(yDestino);
+                }
         }else{
             VistaTablero.mostrarMensaje("No es posible mover la pieza a la posición seleccionada.");
         }
+    }
+
+    public void eliminarPieza(Pieza pieza){
+        if (pieza ==null){
+            throw new IllegalArgumentException("La pieza a eliminar no existe");
+        }
+        if (pieza.getColor() == Color.BLANCO){
+            this.tableroActual.getPiezasBlancas().remove(pieza);
+            this.tableroActual.getPiezasEliminadas().add(pieza);
+        }else{
+            this.tableroActual.getPiezasNegras().remove(pieza);
+            this.tableroActual.getPiezasEliminadas().add(pieza);
+        }
+        pieza.setX(-1);
+        pieza.setY(-1);
     }
 }
