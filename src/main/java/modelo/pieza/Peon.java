@@ -4,8 +4,8 @@ import modelo.Pieza;
 import modelo.TipoPieza;
 
 public class Peon extends Pieza {
-    public Peon(int columna, int fila, Color color) {
-      super(columna, fila, color, 1);
+    public Peon(int x, int y, Color color) {
+      super(x, y, color, 1);
       this.tipoPieza = TipoPieza.PEON;
         if (this.getColor() == Color.BLANCO)
             this.setIcono('♙');
@@ -15,16 +15,15 @@ public class Peon extends Pieza {
 
     /**
      * Método con el que hacemos que el peon se mueva, comprobando todo
-     * @param filaDestino El número de la columna donde queremos mover la pieza
-     * @param columnaDestino El número de la fila donde queremos mover la pieza
-     * @param tablero Tablero donde se mueve la pieza
+     * @param xDestino El número de la columna donde queremos mover la pieza
+     * @param yDestino El número de la fila donde queremos mover la pieza
      * @return Devuelve si el movimiento es válido (true) o si no lo es (false)
      */
     @Override
-    public boolean puedeMover(int filaDestino, int columnaDestino, Tablero tablero) {
+    public boolean puedeMover(int xDestino, int yDestino) {
         // Calculamos cuanto se mueve el peon
-        int diferenciaFila = filaDestino - getFila();
-        int diferenciaColumna = columnaDestino - getColumna();
+        int diferenciaFila = yDestino - getY();
+        int diferenciaColumna = xDestino - getX();
 
         int direccion; // Las piezas blancas suben (-1), las negras bajan (1)
         if (getColor() == Color.BLANCO) {
@@ -35,19 +34,13 @@ public class Peon extends Pieza {
 
         // Movimiento normal del peon, 1 hacia delante
         if (diferenciaColumna == 0 && diferenciaFila == direccion) {
-            if (!tablero.estaOcupado(columnaDestino, filaDestino)) {
-                return true;
-            }
+            return true;
         }
 
         // Movimiento doble del inicio
         if (diferenciaColumna == 0 && diferenciaFila == 2 * direccion) {
-            if ((getColor() == Color.BLANCO && getFila() == 6) || (getColor() == Color.NEGRO && getFila() == 1)) {
-                int filaIntermedia = getFila() + direccion;
-                if (!tablero.estaOcupado(columnaDestino, filaIntermedia) &&
-                        !tablero.estaOcupado(columnaDestino, filaDestino)) {
-                    return true;
-                }
+            if ((getColor() == Color.BLANCO && getY() == 6) || (getColor() == Color.NEGRO && getY() == 1)) {
+                int filaIntermedia = getY() + direccion;
             }
         }
         return false;
@@ -55,14 +48,14 @@ public class Peon extends Pieza {
 
     /**
      * Método sobreescrito con el que podemos atacar con el peon
-     * @param filaDestino El número de la columna donde queremos mover a la pieza en el tablero
-     * @param columnaDestino El número de la fila donde queremos mover a la pieza en el tablero
+     * @param yDestino El número de la columna donde queremos mover a la pieza en el tablero
+     * @param xDestino El número de la fila donde queremos mover a la pieza en el tablero
      * @return Devuelve si el peon puede atacar (true) o no puede atacar (false)
      */
-    public boolean puedeAtacar(int filaDestino, int columnaDestino) {
+    public boolean puedeAtacar(int yDestino, int xDestino) {
         // Solo puede atacar 1 casilla diagonal hacia delante
-        int diferenciaFila = filaDestino - getFila();
-        int diferenciaColumna = columnaDestino - getColumna();
+        int diferenciaFila = yDestino - getY();
+        int diferenciaColumna = xDestino - getX();
 
         int direccion;
         if (getColor() == Color.BLANCO) {
@@ -71,13 +64,16 @@ public class Peon extends Pieza {
             direccion = 1;
         }
 
-        if (diferenciaFila == direccion && diferenciaColumna == 1) return true;
+        // Verifica que sea diagonal de 1 paso
+        if (Math.abs(diferenciaColumna) == 1 && diferenciaFila == direccion) {
+            return true;
+        }
         return false;
     }
 
     @Override
     public Pieza copiar() {
-        return new Peon(getColumna(), getFila(), getColor());
+        return new Peon(getX(), getY(), getColor());
     }
 
     @Override
