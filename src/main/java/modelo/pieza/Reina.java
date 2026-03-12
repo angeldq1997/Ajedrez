@@ -1,13 +1,12 @@
 package modelo.pieza;
 import modelo.Color;
 import modelo.Pieza;
-import modelo.Tablero;
 import modelo.TipoPieza;
 
 public class Reina extends Pieza {
 
-    public Reina(int columna, int fila, Color color) {
-        super(columna, fila, color, 9);
+    public Reina(int x, int y, Color color) {
+        super(x, y, color, 9);
         this.tipoPieza = TipoPieza.REINA;
         if (this.getColor() == Color.BLANCO) {
             this.setIcono('♕');
@@ -43,7 +42,7 @@ public class Reina extends Pieza {
 
     @Override
     public Pieza copiar() {
-        return new Reina(getFila(), getColumna(), getColor());
+        return new Reina(getY(), getX(), getColor());
     }
 
     public String toString() {
