@@ -5,28 +5,35 @@ import modelo.Tablero;
 import modelo.TipoPieza;
 
 public class Alfil extends Pieza {
-
     public Alfil(int columna, int fila, Color color) {
         super(columna, fila, color, 3);
         this.tipoPieza = TipoPieza.ALFIL;
         if (this.getColor() == Color.BLANCO) {
-            this.setIcono('♗');
+            this.setIcono('♔');
         } else {
-            this.setIcono('♝');
+            this.setIcono('♚');
         }
+
     }
 
     @Override
-    public boolean puedeMover(int filaDestino, int columnaDestino) {
-        if( Math.abs(filaDestino - this.getFila()) == Math.abs(columnaDestino - getColumna()) ){
-            return true;
-        }
-        return false;
+    public boolean puedeMover(int filaDestino, int columnaDestina) {
+            boolean posible = false;
+            int diferenciafilas = filaDestino - this.getFila();
+            int diferenciacolumnas = columnaDestina -this.getColumna();
+            if (Math.abs(diferenciafilas) == Math.abs(diferenciacolumnas)){
+                this.setFila(filaDestino);
+                this.setColumna(columnaDestina);
+            }else{
+                System.out.println("Movimiento invalido.");
+                posible = false;
+            }
+            return posible;
     }
 
     @Override
     public Pieza copiar() {
-        return null;
+        return new Alfil(getColumna(), getFila(), getColor());
     }
 
     public String toString() {
@@ -37,16 +44,4 @@ public class Alfil extends Pieza {
         }
     }
 
-    public boolean movimiento(int nuevafila, int nuevacolumna){
-        boolean posible = false;
-        int diferenciafilas = nuevafila - getFila();
-        int diferenciacolumnas = nuevacolumna -getColumna();
-        if (Math.abs(diferenciafilas) == Math.abs(diferenciacolumnas)&& Tablero.estaOcupado(nuevafila,nuevacolumna)){
-            posible = true;
-        }else{
-            System.out.println("Movimiento invalido.");
-            posible = false;
-        }
-        return posible;
-    }
 }
