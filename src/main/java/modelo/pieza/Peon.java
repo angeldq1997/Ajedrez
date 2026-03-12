@@ -32,16 +32,12 @@ public class Peon extends Pieza {
             direccion = 1;
         }
 
-        // Movimiento normal del peon, 1 hacia delante
-        if (diferenciaColumna == 0 && diferenciaFila == direccion) {
-            return true;
-        }
+        // Movimiento normal, 1 hacia delante
+        if (diferenciaColumna == 0 && diferenciaFila == direccion) return false;
 
-        // Movimiento doble del inicio
-        if (diferenciaColumna == 0 && diferenciaFila == 2 * direccion) {
-            if ((getColor() == Color.BLANCO && getY() == 6) || (getColor() == Color.NEGRO && getY() == 1)) {
-                int filaIntermedia = getY() + direccion;
-            }
+        // Movimiento inicial doble
+        if (diferenciaColumna == 0 && diferenciaFila == 2 * direccion){
+            if (getColor() == Color.BLANCO && getFila() == 6 || getColor() == Color.NEGRO && getFila() == 1) return true;
         }
         return false;
     }
