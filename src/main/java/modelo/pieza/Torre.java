@@ -34,12 +34,4 @@ public class Torre extends Pieza {
     public Pieza copiar () {
         return new Torre (this.getY(), this.getX(), this.getColor()) ;
     }
-
-    public String toString() {
-        if (this.getColor() == Color.BLANCO) {
-            return "♖";
-        } else {
-            return "♜";
-        }
-    }
 }

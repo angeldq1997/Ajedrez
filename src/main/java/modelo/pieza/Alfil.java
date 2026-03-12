@@ -22,8 +22,6 @@ public class Alfil extends Pieza {
         int diferenciaFilas = yDestino - this.getY();
         int diferenciaColumnas = xDestino -this.getX();
         if (Math.abs(diferenciaFilas) == Math.abs(diferenciaColumnas)){
-            this.setY(yDestino);
-            this.setX(xDestino);
             posible = true;
         }else{
             throw  new IllegalArgumentException("Movimiento inválido.");
@@ -34,13 +32,5 @@ public class Alfil extends Pieza {
     @Override
     public Pieza copiar() {
         return new Alfil(this.getX(), this.getY(), this.getColor());
-    }
-
-    public String toString() {
-        if (this.getColor() == Color.BLANCO) {
-            return "♗";
-        } else {
-            return "♝";
-        }
     }
 }

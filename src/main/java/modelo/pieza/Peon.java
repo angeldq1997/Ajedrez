@@ -71,17 +71,4 @@ public class Peon extends Pieza {
     public Pieza copiar() {
         return new Peon(getX(), getY(), getColor());
     }
-
-    @Override
-    public int getPuntos() {
-        return 1;
-    }
-
-    public String toString() {
-        if (this.getColor() == Color.BLANCO) {
-            return "♙";
-        } else {
-            return "♟";
-        }
-    }
 }
