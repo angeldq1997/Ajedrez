@@ -10,30 +10,35 @@ public class ControladorTablero {
         this.tableroActual = tableroActual;
     }
 
+    /**
+     * Método con el que movemos una pieza en el tablero, con todas las comprobaciones
+     * @param columnaDestino Columna donde queremos mover la pieza
+     * @param filaDestino Fila donde queremos mover la pieza
+     * @param pieza Pieza que queremos mover
+     */
     public void moverPieza(int columnaDestino, int filaDestino, Pieza pieza){
-        //Casilla Destino
-        Casilla cDest = tableroActual.getCasillas()[columnaDestino][filaDestino];
 
-        if (tableroActual.hayReyEnemigoOPiezaMismoColor(columnaDestino, filaDestino, pieza)){
-            if( pieza.puedeMover(columnaDestino, filaDestino) ) {
+        Casilla cDest = this.tableroActual.getCasillas()[columnaDestino][filaDestino];
+
+        if (this.tableroActual.estaEnLimites(columnaDestino, filaDestino)){
+            if(pieza.puedeMover(columnaDestino, filaDestino)) {
                 if (cDest.estaOcupada()) {
-                    if (pieza.getColor() == Color.BLANCO) {
-                        tableroActual.getPiezasBlancas().remove(tableroActual.getPiezasBlancas().get(tableroActual.posicionPieza(cDest.getPieza())));
-                    } else {
-                        tableroActual.getPiezasNegras().remove(tableroActual.getPiezasNegras().get(tableroActual.posicionPieza(cDest.getPieza())));
+                    if (this.tableroActual.hayReyEnemigoOPiezaMismoColor(columnaDestino, filaDestino, pieza)) {
+                        if (pieza.getColor() == Color.BLANCO) {
+                            this.tableroActual.getPiezasBlancas().remove(this.tableroActual.getPiezasBlancas().get(this.tableroActual.posicionPieza(cDest.getPieza())));
+                        } else {
+                            this.tableroActual.getPiezasNegras().remove(this.tableroActual.getPiezasNegras().get(this.tableroActual.posicionPieza(cDest.getPieza())));
+                        }
+                        cDest.unsetPieza();
                     }
-                    tableroActual.getCasillas()[pieza.getColumna()][pieza.getFila()].unsetPieza();
-                    cDest.unsetPieza();
-                    cDest.setPieza(pieza);
-                    pieza.setColumna(columnaDestino);
-                    pieza.setFila(filaDestino);
-                } else {
-                    this.tableroActual.getCasillas()[pieza.getColumna()][pieza.getFila()].unsetPieza();
-                    cDest.setPieza(pieza);
-                    pieza.setColumna(columnaDestino);
-                    pieza.setFila(filaDestino);
                 }
             }
+        }
+        pieza.setColumna(columnaDestino);
+        pieza.setFila(filaDestino);
+
+        cDest.setPieza(pieza);
+        this.tableroActual.getCasillas()[pieza.getColumna()][pieza.getFila()].unsetPieza();
         }else{
             VistaTablero.mostrarMensaje("No es posible mover la pieza a la posición seleccionada.");
         }
