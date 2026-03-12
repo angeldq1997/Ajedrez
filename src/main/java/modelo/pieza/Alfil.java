@@ -9,10 +9,11 @@ public class Alfil extends Pieza {
         super(x, y, color, 3);
         this.tipoPieza = TipoPieza.ALFIL;
         if (this.getColor() == Color.BLANCO) {
-            this.setIcono('♗');
+            this.setIcono('♔');
         } else {
-            this.setIcono('♝');
+            this.setIcono('♚');
         }
+
     }
 
     @Override
