@@ -4,8 +4,8 @@ import modelo.Pieza;
 import modelo.TipoPieza;
 
 public class Peon extends Pieza {
-    public Peon(int columna, int fila, Color color) {
-      super(columna, fila, color, 1);
+    public Peon(int x, int y, Color color) {
+      super(x, y, color, 1);
       this.tipoPieza = TipoPieza.PEON;
         if (this.getColor() == Color.BLANCO)
             this.setIcono('♙');
@@ -15,15 +15,15 @@ public class Peon extends Pieza {
 
     /**
      * Método con el que hacemos que el peon se mueva, comprobando todo
-     * @param filaDestino El número de la columna donde queremos mover la pieza
-     * @param columnaDestino El número de la fila donde queremos mover la pieza
+     * @param xDestino El número de la columna donde queremos mover la pieza
+     * @param yDestino El número de la fila donde queremos mover la pieza
      * @return Devuelve si el movimiento es válido (true) o si no lo es (false)
      */
     @Override
-    public boolean puedeMover(int filaDestino, int columnaDestino) {
+    public boolean puedeMover(int xDestino, int yDestino) {
         // Calculamos cuanto se mueve el peon
-        int diferenciaFila = filaDestino - getFila();
-        int diferenciaColumna = columnaDestino - getColumna();
+        int diferenciaFila = yDestino - getY();
+        int diferenciaColumna = xDestino - getX();
 
         int direccion; // Las piezas blancas suben (-1), las negras bajan (1)
         if (getColor() == Color.BLANCO) {
@@ -44,16 +44,14 @@ public class Peon extends Pieza {
 
     /**
      * Método sobreescrito con el que podemos atacar con el peon
-     * @param filaDestino El número de la columna donde queremos mover a la pieza en el tablero
-     * @param columnaDestino El número de la fila donde queremos mover a la pieza en el tablero
-     * @param tablero Tablero donde se mueve la pieza
+     * @param yDestino El número de la columna donde queremos mover a la pieza en el tablero
+     * @param xDestino El número de la fila donde queremos mover a la pieza en el tablero
      * @return Devuelve si el peon puede atacar (true) o no puede atacar (false)
      */
-    @Override
-    public boolean puedeAtacar(int filaDestino, int columnaDestino, Tablero tablero) {
+    public boolean puedeAtacar(int yDestino, int xDestino) {
         // Solo puede atacar 1 casilla diagonal hacia delante
-        int diferenciaFila = filaDestino - getFila();
-        int diferenciaColumna = columnaDestino - getColumna();
+        int diferenciaFila = yDestino - getY();
+        int diferenciaColumna = xDestino - getX();
 
         int direccion;
         if (getColor() == Color.BLANCO) {
@@ -64,18 +62,14 @@ public class Peon extends Pieza {
 
         // Verifica que sea diagonal de 1 paso
         if (Math.abs(diferenciaColumna) == 1 && diferenciaFila == direccion) {
-            // La casilla debe estar ocupada por una pieza contraria
-            Pieza piezaDestino = tablero.getPieza(columnaDestino, filaDestino);
-            if (piezaDestino != null && piezaDestino.getColor() != getColor()) {
-                return true;
-            }
+            return true;
         }
         return false;
     }
 
     @Override
     public Pieza copiar() {
-        return new Peon(getColumna(), getFila(), getColor());
+        return new Peon(getX(), getY(), getColor());
     }
 
     @Override
