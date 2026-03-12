@@ -16,3 +16,20 @@ public class VistaTablero {
         System.out.println("ERROR: " + mensaje);
     }
 }
+
+    public static void mostrarMenuPrincipal(){
+            System.out.println("\n--- MENÚ PRINCIPAL ---");
+            System.out.println("1. Seleccionar pieza");
+            System.out.println("2. Reiniciar tablero");
+            System.out.println("3. Cargar tablero");
+            System.out.println("4. Guardar tablero");
+            System.out.println("0. Salir");
+            System.out.print("Selecciona una opción: ");
+    }
+
+    public static void mostrarMenuPiezaSeleccionada(){
+            System.out.println("\n--- PIEZA SELECCIONADA ---");
+            System.out.println("1. Mover");
+            System.out.println("2. Cancelar");
+            System.out.print("Selecciona una opción: ");
+    }
