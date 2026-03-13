@@ -1,7 +1,5 @@
 package modelo;
 
-import modelo.pieza.Peon;
-
 public class Casilla {
     private Pieza pieza;
     private Color colorCasilla;

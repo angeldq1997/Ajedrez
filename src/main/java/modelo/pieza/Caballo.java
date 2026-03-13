@@ -2,8 +2,8 @@ package modelo.pieza;
 import modelo.*;
 
 public class Caballo extends Pieza implements Saltadora {
-    public Caballo(int columna, int fila, Color color) {
-        super(columna, fila, color, 3);
+    public Caballo(int x, int y, Color color) {
+        super(x, y, color, 3);
         this.tipoPieza = TipoPieza.CABALLO;
         if (this.getColor() == Color.BLANCO)
             this.setIcono('♘');
@@ -12,20 +12,12 @@ public class Caballo extends Pieza implements Saltadora {
     }
 
     @Override
-    public boolean puedeMover(int columnaDestino, int filaDestino) {
-        boolean puedeMover = false;
-        if (this.validaPosicion(columnaDestino, filaDestino)){
-            if ( (filaDestino-getFila())*(filaDestino-getFila()) +(columnaDestino-getColumna())*(columnaDestino-getColumna()) == 5){
-                puedeMover = true;
-            }
-        }
-        return puedeMover;
+    public boolean puedeMover(int xDestino, int yDestino) {
+        return (yDestino - getY())*(yDestino - getY()) +(xDestino - getX())*(xDestino - getX()) == 5;
     }
 
-    public String toString() {
-        if (this.getColor() == Color.BLANCO)
-            return "♘";
-        else
-            return "♞";
+    @Override
+    public Pieza copiar() {
+        return new Caballo(this.getX(), this.getY(), this.getColor());
     }
 }

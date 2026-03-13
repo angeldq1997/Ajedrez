@@ -1,52 +1,36 @@
 package modelo.pieza;
 import modelo.Color;
 import modelo.Pieza;
-import modelo.Tablero;
 import modelo.TipoPieza;
 
 public class Alfil extends Pieza {
 
-    public Alfil(int columna, int fila, Color color) {
-        super(columna, fila, color, 3);
+    public Alfil(int x, int y, Color color) {
+        super(x, y, color, 3);
         this.tipoPieza = TipoPieza.ALFIL;
         if (this.getColor() == Color.BLANCO) {
-            this.setIcono('♗');
+            this.setIcono('♔');
         } else {
-            this.setIcono('♝');
+            this.setIcono('♚');
         }
+
     }
 
     @Override
-    public boolean puedeMover(int filaDestino, int columnaDestino) {
-        if( Math.abs(filaDestino - this.getFila()) == Math.abs(columnaDestino - getColumna()) ){
-            return true;
+    public boolean puedeMover(int xDestino, int yDestino) {
+        boolean posible = false;
+        int diferenciaFilas = yDestino - this.getY();
+        int diferenciaColumnas = xDestino -this.getX();
+        if (Math.abs(diferenciaFilas) == Math.abs(diferenciaColumnas)){
+            posible = true;
+        }else{
+            throw  new IllegalArgumentException("Movimiento inválido.");
         }
-        return false;
+        return posible;
     }
 
     @Override
     public Pieza copiar() {
-        return null;
-    }
-
-    public String toString() {
-        if (this.getColor() == Color.BLANCO) {
-            return "♗";
-        } else {
-            return "♝";
-        }
-    }
-
-    public boolean movimiento(int nuevafila, int nuevacolumna){
-        boolean posible = false;
-        int diferenciafilas = nuevafila - getFila();
-        int diferenciacolumnas = nuevacolumna -getColumna();
-        if (Math.abs(diferenciafilas) == Math.abs(diferenciacolumnas)&& Tablero.estaOcupado(nuevafila,nuevacolumna)){
-            posible = true;
-        }else{
-            System.out.println("Movimiento invalido.");
-            posible = false;
-        }
-        return posible;
+        return new Alfil(this.getX(), this.getY(), this.getColor());
     }
 }
