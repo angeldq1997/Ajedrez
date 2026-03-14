@@ -1,4 +1,6 @@
 package utils;
+import view.VistaTablero;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 public class Utils {
@@ -53,5 +55,31 @@ public class Utils {
             }
         } while (!esValido);
         return resultado;
+    }
+
+    /**
+     * Method para recibir la confirmación de un usuario ante un cambio importante o que pueda tener consecuencias graves
+     * @param mensajeConfirmar Mensaje para pedir de forma personalizada la confirmación al usuario
+     * @return Devuelve TRUE si acepta y FALSE si introduce cualquier input salvo "SI" en texto
+     */
+    public static boolean confirmarInput(String mensajeConfirmar){
+        boolean usuarioAcepta = false;
+        VistaTablero.mostrarMensaje(mensajeConfirmar);
+        String confirmar = validarString("Introduzca SI para confirmar o NO para cancelar.");
+        if (confirmar.equalsIgnoreCase("SI")){
+            usuarioAcepta = true;
+        }
+        return usuarioAcepta;
+    }
+
+    public static String validarString(String mensajeAPedir){
+        Scanner keyboard =  new Scanner(System.in);
+        String cadenaAValidar = "";
+        VistaTablero.mostrarMensaje(mensajeAPedir);
+        cadenaAValidar = keyboard.nextLine();
+        if (cadenaAValidar.isBlank()){
+            throw new InputMismatchException("No ha introducido texto.");
+        }
+        return cadenaAValidar;
     }
 }

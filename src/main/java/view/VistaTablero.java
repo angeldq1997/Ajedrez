@@ -1,5 +1,7 @@
 package view;
 
+import controlador.ControladorTablero;
+
 public class VistaTablero {
 
     /**
@@ -21,19 +23,17 @@ public class VistaTablero {
     }
 
     public static void mostrarMenuPrincipal() {
-        System.out.println("\n--- MENÚ PRINCIPAL ---");
-        System.out.println("1. Seleccionar pieza");
-        System.out.println("2. Reiniciar tablero");
-        System.out.println("3. Cargar tablero");
-        System.out.println("4. Guardar tablero");
-        System.out.println("0. Salir");
-        System.out.print("Selecciona una opción: ");
+        VistaTablero.mostrarMensaje("\n--- MENÚ PRINCIPAL ---");
+        VistaTablero.mostrarMensaje("0. Salir");
+        VistaTablero.mostrarMensaje("1. Seleccionar pieza");
+        VistaTablero.mostrarMensaje("2. Reiniciar tablero");
+        VistaTablero.mostrarMensaje("3. Cargar tablero");
+        VistaTablero.mostrarMensaje("4. Guardar tablero");
     }
 
     public static void mostrarMenuPiezaSeleccionada() {
-        System.out.println("\n--- PIEZA SELECCIONADA ---");
-        System.out.println("1. Mover");
-        System.out.println("2. Cancelar");
-        System.out.print("Selecciona una opción: ");
+        VistaTablero.mostrarMensaje("\n--- PIEZA SELECCIONADA ---");
+        VistaTablero.mostrarMensaje("0. Cancelar");
+        VistaTablero.mostrarMensaje("1. Mover");
     }
 }
