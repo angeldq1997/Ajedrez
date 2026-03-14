@@ -1,5 +1,6 @@
 package modelo;
 import modelo.pieza.*;
+import view.VistaTablero;
 
 import java.util.ArrayList;
 
@@ -284,17 +285,6 @@ public class Tablero {
         return posicionPieza;
     }
 
-    public String mostrarTablero() {
-        String tablero = "";
-        for (int y = 0; y < 8; y++) {
-            tablero += "\n" + y;
-            for (int x = 0; x < 8; x++) {
-                tablero += this.getCasillas()[x][y].getIcono();
-            }
-        }
-        return tablero;
-    }
-
     public boolean compruebaPiezasIntermedias(int xDestino, int yDestino, int x, int y) {
         boolean posible = false;
         int comprobacion1 = yDestino - y;
@@ -323,5 +313,44 @@ public class Tablero {
             return posible;
         }
         return false;
+    }
+
+    public void mostrarPiezasMuertas() {
+        if (piezasEliminadas.isEmpty()) {
+            VistaTablero.mostrarMensaje("No hay piezas eliminadas.");
+            return;
+        }
+
+        VistaTablero.mostrarMensaje("Piezas eliminadas:");
+        for (Pieza p : piezasEliminadas) {
+            VistaTablero.mostrarMensaje(p.toString() + "\n");
+        }
+    }
+
+    public void eliminarPieza(Pieza pieza) {
+        if (pieza == null) {
+            throw new IllegalArgumentException("La pieza a eliminar no existe");
+        }
+        if (pieza.getColor() == Color.BLANCO) {
+            this.getPiezasBlancas().remove(pieza);
+            this.getPiezasEliminadas().add(pieza);
+        } else {
+            this.getPiezasNegras().remove(pieza);
+            this.getPiezasEliminadas().add(pieza);
+        }
+        pieza.setX(-1);
+        pieza.setY(-1);
+    }
+
+    @Override
+    public String toString() {
+        String tablero = "";
+        for (int y = 0; y < 8; y++) {
+            tablero += "\n" + y;
+            for (int x = 0; x < 8; x++) {
+                tablero += this.getCasillas()[x][y].getIcono();
+            }
+        }
+        return tablero;
     }
 }
