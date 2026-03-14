@@ -1,5 +1,7 @@
 package view;
+
 public class VistaTablero {
+
     /**
      * Función que muestra en pantalla un mensaje concreto.
      *

@@ -25,23 +25,23 @@ public class Reina extends Pieza {
 
     /**
      * Método con el que podemos hacer que la reina se pueda mover, comprobando todo.
-     * @param filaDestino El número de la fila donde queremos mover la pieza
-     * @param columnaDestino El número de la columna donde queremos mover la pieza
+     * @param yDestino El número de la fila donde queremos mover la pieza
+     * @param xDestino El número de la columna donde queremos mover la pieza
      * @return Devuelve true si se puede mover y false, si no se puede mover
      */
     @Override
-    public boolean puedeMover(int filaDestino, int columnaDestino) {
-        int diferenciaFila = Math.abs(filaDestino - getY());
-        int diferenciaColumna = Math.abs(columnaDestino - getX());
+    public boolean puedeMover(int xDestino, int yDestino) {
+        int diferenciaFila = Math.abs(yDestino - getY());
+        int diferenciaColumna = Math.abs(xDestino - getX());
 
         // Comprobamos que la reina no se quede en la misma posición
         if (diferenciaFila == 0 && diferenciaColumna == 0) return false;
 
         // Movimiento vertical
-        if (getX() == columnaDestino) return true;
+        if (getX() == xDestino) return true;
 
         // Movimiento horizontal
-        if (getY() == filaDestino) return true;
+        if (getY() == yDestino) return true;
 
         // Movimiento diagonal
         if (diferenciaFila == diferenciaColumna) return true;

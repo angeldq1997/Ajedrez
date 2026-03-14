@@ -4,324 +4,324 @@ import modelo.pieza.*;
 import java.util.ArrayList;
 
 public class Tablero {
-        private ArrayList<Pieza> piezasBlancas;
-        private ArrayList<Pieza> piezasNegras;
-        private ArrayList<Pieza> piezasEliminadas;
-        private Casilla[][] casillas;
+    private ArrayList<Pieza> piezasBlancas;
+    private ArrayList<Pieza> piezasNegras;
+    private ArrayList<Pieza> piezasEliminadas;
+    private Casilla[][] casillas;
 
-        public Tablero(ArrayList<Pieza> piezasBlancas, ArrayList<Pieza> piezasNegras, ArrayList<Pieza> piezasEliminadas, Casilla[][] casillas) {
-            this.piezasBlancas = piezasBlancas;
-            this.piezasNegras = piezasNegras;
-            this.piezasEliminadas = piezasEliminadas;
-            this.casillas = casillas;
-        }
+    public Tablero(ArrayList<Pieza> piezasBlancas, ArrayList<Pieza> piezasNegras, ArrayList<Pieza> piezasEliminadas, Casilla[][] casillas) {
+        this.piezasBlancas = piezasBlancas;
+        this.piezasNegras = piezasNegras;
+        this.piezasEliminadas = piezasEliminadas;
+        this.casillas = casillas;
+    }
 
-        public Tablero() {
-            this.piezasEliminadas = new ArrayList<Pieza>();
-            this.casillas = new Casilla[8][8];
-            for (int y = 0; y < 8; y++) {
-                for (int x = 0; x < 8; x++) {
-                    this.casillas[x][y] = new Casilla();
-                }
-            }
-            asignacionColorCasillas();
-
-            this.piezasNegras = new ArrayList<>();
-            colocarPiezasArriba(Color.NEGRO, this.piezasNegras);
-            this.piezasBlancas = new ArrayList<>();
-            colocarPiezasAbajo(Color.BLANCO, this.piezasBlancas);
-        }
-
-        public ArrayList<Pieza> getPiezasBlancas() {
-            return piezasBlancas;
-        }
-
-        public void setPiezasBlancas(ArrayList<Pieza> piezasBlancas) {
-            this.piezasBlancas = piezasBlancas;
-        }
-
-        public ArrayList<Pieza> getPiezasNegras() {
-            return piezasNegras;
-        }
-
-        public void setPiezasNegras(ArrayList<Pieza> piezasNegras) {
-            this.piezasNegras = piezasNegras;
-        }
-
-        public ArrayList<Pieza> getPiezasEliminadas() {
-            return piezasEliminadas;
-        }
-
-        public void setPiezasEliminadas(ArrayList<Pieza> piezasEliminadas) {
-            this.piezasEliminadas = piezasEliminadas;
-        }
-
-        public Casilla[][] getCasillas() {
-            return casillas;
-        }
-
-        private void colocarPiezasArriba(Color color, ArrayList<Pieza> piezas) {
+    public Tablero() {
+        this.piezasEliminadas = new ArrayList<Pieza>();
+        this.casillas = new Casilla[8][8];
+        for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 8; x++) {
-                Peon peon = new Peon(x, 1, color);
-                piezas.add(peon);
-            }
-            Torre torre = new Torre(0, 0, color);
-            Caballo caballo = new Caballo(1, 0, color);
-            Alfil alfil = new Alfil(2, 0, color);
-            Reina reina = new Reina(3, 0, color);
-            Rey rey = new Rey(4, 0, color);
-            Alfil alfil2 = new Alfil(5, 0, color);
-            Caballo caballo2 = new Caballo(6, 0, color);
-            Torre torre2 = new Torre(7, 0, color);
-            piezas.add(torre);
-            piezas.add(torre2);
-            piezas.add(caballo);
-            piezas.add(caballo2);
-            piezas.add(alfil);
-            piezas.add(alfil2);
-            piezas.add(reina);
-            piezas.add(rey);
-            for (Pieza p : piezas) {
-                p.asignarCasilla(this.casillas);
+                this.casillas[x][y] = new Casilla();
             }
         }
+        asignacionColorCasillas();
 
-        private void colocarPiezasAbajo(Color color, ArrayList<Pieza> piezas) {
-            for (int x = 0; x < 8; x++) {
-                Peon peon = new Peon(x, 6, color);
-                piezas.add(peon);
-            }
-            Torre torre = new Torre(0, 7, color);
-            Caballo caballo = new Caballo(1, 7, color);
-            Alfil alfil = new Alfil(2, 7, color);
-            Reina reina = new Reina(3, 7, color);
-            Rey rey = new Rey(4, 7, color);
-            Alfil alfil2 = new Alfil(5, 7, color);
-            Caballo caballo2 = new Caballo(6, 7, color);
-            Torre torre2 = new Torre(7, 7, color);
-            piezas.add(torre);
-            piezas.add(torre2);
-            piezas.add(caballo);
-            piezas.add(caballo2);
-            piezas.add(alfil);
-            piezas.add(alfil2);
-            piezas.add(reina);
-            piezas.add(rey);
-            for (Pieza p : piezas) {
-                p.asignarCasilla(this.casillas);
-            }
+        this.piezasNegras = new ArrayList<>();
+        colocarPiezasArriba(Color.NEGRO, this.piezasNegras);
+        this.piezasBlancas = new ArrayList<>();
+        colocarPiezasAbajo(Color.BLANCO, this.piezasBlancas);
+    }
+
+    public ArrayList<Pieza> getPiezasBlancas() {
+        return piezasBlancas;
+    }
+
+    public void setPiezasBlancas(ArrayList<Pieza> piezasBlancas) {
+        this.piezasBlancas = piezasBlancas;
+    }
+
+    public ArrayList<Pieza> getPiezasNegras() {
+        return piezasNegras;
+    }
+
+    public void setPiezasNegras(ArrayList<Pieza> piezasNegras) {
+        this.piezasNegras = piezasNegras;
+    }
+
+    public ArrayList<Pieza> getPiezasEliminadas() {
+        return piezasEliminadas;
+    }
+
+    public void setPiezasEliminadas(ArrayList<Pieza> piezasEliminadas) {
+        this.piezasEliminadas = piezasEliminadas;
+    }
+
+    public Casilla[][] getCasillas() {
+        return casillas;
+    }
+
+    private void colocarPiezasArriba(Color color, ArrayList<Pieza> piezas) {
+        for (int x = 0; x < 8; x++) {
+            Peon peon = new Peon(x, 1, color);
+            piezas.add(peon);
         }
-
-        public boolean estaOcupado(int x, int y) {
-            for (Pieza p : piezasBlancas) {
-                if (p.getY() == y && p.getX() == x) {
-                    return true;
-                }
-            }
-            for (Pieza p : piezasNegras) {
-                if (p.getY() == y && p.getX() == x) {
-                    return true;
-                }
-            }
-            return false;
+        Torre torre = new Torre(0, 0, color);
+        Caballo caballo = new Caballo(1, 0, color);
+        Alfil alfil = new Alfil(2, 0, color);
+        Reina reina = new Reina(3, 0, color);
+        Rey rey = new Rey(4, 0, color);
+        Alfil alfil2 = new Alfil(5, 0, color);
+        Caballo caballo2 = new Caballo(6, 0, color);
+        Torre torre2 = new Torre(7, 0, color);
+        piezas.add(torre);
+        piezas.add(torre2);
+        piezas.add(caballo);
+        piezas.add(caballo2);
+        piezas.add(alfil);
+        piezas.add(alfil2);
+        piezas.add(reina);
+        piezas.add(rey);
+        for (Pieza p : piezas) {
+            p.asignarCasilla(this.casillas);
         }
+    }
 
-        public boolean hayPiezasIntermedias(int xInicial, int yInicial, int xDestino, int yDestino) {
-            int filDir = Integer.signum(yDestino - yInicial); // +1, -1, o 0
-            int colDir = Integer.signum(xDestino - xInicial); // +1, -1, o 0
-
-            int filaActual = yInicial + filDir;
-            int colActual = xInicial + colDir;
-
-            // Recorre mientras no llegue a la casilla de destino
-            while (filaActual != yDestino || colActual != xDestino) {
-                if (this.casillas[colActual][filaActual].estaOcupada()) {
-                    return true; // Hay una pieza en el camino
-                }
-                filaActual += filDir;
-                colActual += colDir;
-            }
-            return false;
+    private void colocarPiezasAbajo(Color color, ArrayList<Pieza> piezas) {
+        for (int x = 0; x < 8; x++) {
+            Peon peon = new Peon(x, 6, color);
+            piezas.add(peon);
         }
-
-        /**
-         * Método con el que obtenemos el lugar exacto de la pieza
-         * @param x Columna en la que se encuentra la pieza
-         * @param y Fila en la que se encuentra la pieza
-         * @return Devuelve la pieza o null, si no hay pieza en esa casilla
-         */
-        public Pieza getPieza(int x, int y) {
-            for (Pieza p : piezasBlancas) {
-                if (p.getX() == x && p.getY() == y) return p;
-            }
-            for (Pieza p : piezasNegras) {
-                if (p.getX() == x && p.getY() == y) return p;
-            }
-            return null;
+        Torre torre = new Torre(0, 7, color);
+        Caballo caballo = new Caballo(1, 7, color);
+        Alfil alfil = new Alfil(2, 7, color);
+        Reina reina = new Reina(3, 7, color);
+        Rey rey = new Rey(4, 7, color);
+        Alfil alfil2 = new Alfil(5, 7, color);
+        Caballo caballo2 = new Caballo(6, 7, color);
+        Torre torre2 = new Torre(7, 7, color);
+        piezas.add(torre);
+        piezas.add(torre2);
+        piezas.add(caballo);
+        piezas.add(caballo2);
+        piezas.add(alfil);
+        piezas.add(alfil2);
+        piezas.add(reina);
+        piezas.add(rey);
+        for (Pieza p : piezas) {
+            p.asignarCasilla(this.casillas);
         }
+    }
 
-        public void vaciarPiezas() {
-            for (Pieza p : this.piezasBlancas) {
-                piezasEliminadas.add(p);
-                piezasBlancas.remove(p);
-            }
-            for (Pieza p2 : this.piezasNegras) {
-                piezasEliminadas.add(p2);
-                piezasNegras.remove(p2);
-            }
-        }
-
-        public Tablero copiarTablero() {
-            return new Tablero(this.piezasBlancas, this.piezasNegras, this.piezasEliminadas, this.casillas);
-        }
-
-        public void resetearTablero() {
-            this.piezasEliminadas = new ArrayList<Pieza>();
-            this.casillas = new Casilla[8][8];
-
-            this.piezasNegras = new ArrayList<>();
-            colocarPiezasArriba(Color.NEGRO, this.piezasNegras);
-            this.piezasBlancas = new ArrayList<>();
-            colocarPiezasAbajo(Color.BLANCO, this.piezasBlancas);
-        }
-
-        public boolean agregarPieza(Pieza pieza, Color color, int x, int y) {
-            boolean estaAgregada = false;
-            if (pieza != null && (color == Color.BLANCO || color == Color.NEGRO) && estaEnLimites(x, y)) {
-                if (color == Color.BLANCO)
-                    this.piezasBlancas.add(pieza);
-                else
-                    this.piezasNegras.add(pieza);
-            }
-            return estaAgregada;
-        }
-
-        public int puntuacionColor(Color color) {
-            int puntuacionTotal = 0;
-            if (color == Color.BLANCO) {
-                for (Pieza p : piezasBlancas)
-                    puntuacionTotal += p.getPuntos();
-            } else if (color == Color.NEGRO) {
-                for (Pieza p : piezasNegras)
-                    puntuacionTotal += p.getPuntos();
-            } else {
-                throw new IllegalArgumentException("Ha introducido un color incorrecto, debe introducir NEGRO o BLANCO.");
-            }
-            return puntuacionTotal;
-        }
-
-        private void asignacionColorCasillas() {
-            Casilla[][] c = this.casillas;
-            for (int y = 0; y < 8; y++) {
-                if (y % 2 == 0) {
-                    for (int x = 0; x < 8; x++) {
-                        if (x % 2 == 0) {
-                            c[x][y].setColorCasilla(Color.BLANCO);
-                            c[x][y].setIcono('░');
-                        } else {
-                            c[x][y].setColorCasilla(Color.NEGRO);
-                            c[x][y].setIcono('▓');
-                        }
-                    }
-                } else {
-                    for (int x = 0; x < 8; x++) {
-                        if (x % 2 == 0) {
-                            c[x][y].setColorCasilla(Color.NEGRO);
-                            c[x][y].setIcono('▓');
-                        } else {
-                            c[x][y].setColorCasilla(Color.BLANCO);
-                            c[x][y].setIcono('░');
-                        }
-                    }
-                }
-
-            }
-        }
-
-        public boolean noHayReyEnemigoOPiezaMismoColor(int xDestino, int yDestino, Pieza pieza) {
-            boolean puedeMover = true;
-            Casilla c = this.getCasillas()[xDestino][yDestino];
-            if (pieza == null) {
-                throw new IllegalArgumentException("Error, la pieza no existe.");
-            }
-            if (c.estaOcupada()) {
-                if (c.getPieza().getColor() == pieza.getColor()) {
-                    puedeMover = false;
-                    throw new IllegalArgumentException("Error, en la casilla destino hay una pieza del mismo color.");
-                } else if (c.getPieza().getTipoPieza() == TipoPieza.REY) {
-                    puedeMover = false;
-                    throw new IllegalArgumentException("Error, en la casilla destino está el rey enemigo.");
-                }
-            }
-            return puedeMover;
-        }
-
-        public boolean estaEnLimites(int x, int y) {
-            if (y < 0 || y > 7 || x < 0 || x > 7)
-                throw new IllegalArgumentException("La casilla seleccionada está fuera de los límites.");
-            else
+    public boolean estaOcupado(int x, int y) {
+        for (Pieza p : piezasBlancas) {
+            if (p.getY() == y && p.getX() == x) {
                 return true;
+            }
         }
+        for (Pieza p : piezasNegras) {
+            if (p.getY() == y && p.getX() == x) {
+                return true;
+            }
+        }
+        return false;
+    }
 
-        public int posicionPieza(Pieza pieza) {
-            int posicionPieza = -1;
-            boolean existe = false;
-            if (pieza.getColor() == Color.BLANCO) {
-                for (int i = 0; i < this.getPiezasBlancas().size() && !existe; i++) {
-                    if (this.getPiezasBlancas().get(i).equals(pieza)) {
-                        posicionPieza = i;
-                        existe = true;
+    public boolean hayPiezasIntermedias(int xInicial, int yInicial, int xDestino, int yDestino) {
+        int filDir = Integer.signum(yDestino - yInicial); // +1, -1, o 0
+        int colDir = Integer.signum(xDestino - xInicial); // +1, -1, o 0
+
+        int filaActual = yInicial + filDir;
+        int colActual = xInicial + colDir;
+
+        // Recorre mientras no llegue a la casilla de destino
+        while (filaActual != yDestino || colActual != xDestino) {
+            if (this.casillas[colActual][filaActual].estaOcupada()) {
+                return true; // Hay una pieza en el camino
+            }
+            filaActual += filDir;
+            colActual += colDir;
+        }
+        return false;
+    }
+
+    /**
+     * Método con el que obtenemos el lugar exacto de la pieza
+     * @param x Columna en la que se encuentra la pieza
+     * @param y Fila en la que se encuentra la pieza
+     * @return Devuelve la pieza o null, si no hay pieza en esa casilla
+     */
+    public Pieza getPieza(int x, int y) {
+        for (Pieza p : piezasBlancas) {
+            if (p.getX() == x && p.getY() == y) return p;
+        }
+        for (Pieza p : piezasNegras) {
+            if (p.getX() == x && p.getY() == y) return p;
+        }
+        return null;
+    }
+
+    public void vaciarPiezas() {
+        for (Pieza p : this.piezasBlancas) {
+            piezasEliminadas.add(p);
+            piezasBlancas.remove(p);
+        }
+        for (Pieza p2 : this.piezasNegras) {
+            piezasEliminadas.add(p2);
+            piezasNegras.remove(p2);
+        }
+    }
+
+    public Tablero copiarTablero() {
+        return new Tablero(this.piezasBlancas, this.piezasNegras, this.piezasEliminadas, this.casillas);
+    }
+
+    public void resetearTablero() {
+        this.piezasEliminadas = new ArrayList<Pieza>();
+        this.casillas = new Casilla[8][8];
+
+        this.piezasNegras = new ArrayList<>();
+        colocarPiezasArriba(Color.NEGRO, this.piezasNegras);
+        this.piezasBlancas = new ArrayList<>();
+        colocarPiezasAbajo(Color.BLANCO, this.piezasBlancas);
+    }
+
+    public boolean agregarPieza(Pieza pieza, Color color, int x, int y) {
+        boolean estaAgregada = false;
+        if (pieza != null && (color == Color.BLANCO || color == Color.NEGRO) && estaEnLimites(x, y)) {
+            if (color == Color.BLANCO)
+                this.piezasBlancas.add(pieza);
+            else
+                this.piezasNegras.add(pieza);
+        }
+        return estaAgregada;
+    }
+
+    public int puntuacionColor(Color color) {
+        int puntuacionTotal = 0;
+        if (color == Color.BLANCO) {
+            for (Pieza p : piezasBlancas)
+                puntuacionTotal += p.getPuntos();
+        } else if (color == Color.NEGRO) {
+            for (Pieza p : piezasNegras)
+                puntuacionTotal += p.getPuntos();
+        } else {
+            throw new IllegalArgumentException("Ha introducido un color incorrecto, debe introducir NEGRO o BLANCO.");
+        }
+        return puntuacionTotal;
+    }
+
+    private void asignacionColorCasillas() {
+        Casilla[][] c = this.casillas;
+        for (int y = 0; y < 8; y++) {
+            if (y % 2 == 0) {
+                for (int x = 0; x < 8; x++) {
+                    if (x % 2 == 0) {
+                        c[x][y].setColorCasilla(Color.BLANCO);
+                        c[x][y].setIcono('░');
+                    } else {
+                        c[x][y].setColorCasilla(Color.NEGRO);
+                        c[x][y].setIcono('▓');
                     }
                 }
             } else {
-                for (int i = 0; i < this.getPiezasNegras().size() && !existe; i++) {
-                    if (this.getPiezasNegras().get(i).equals(pieza)) {
-                        posicionPieza = i;
-                        existe = true;
+                for (int x = 0; x < 8; x++) {
+                    if (x % 2 == 0) {
+                        c[x][y].setColorCasilla(Color.NEGRO);
+                        c[x][y].setIcono('▓');
+                    } else {
+                        c[x][y].setColorCasilla(Color.BLANCO);
+                        c[x][y].setIcono('░');
                     }
                 }
             }
-            return posicionPieza;
-        }
 
-        public String mostrarTablero() {
-            String tablero = "";
-            for (int y = 0; y < 8; y++) {
-                tablero += "\n" + y;
-                for (int x = 0; x < 8; x++) {
-                    tablero += this.getCasillas()[x][y].getIcono();
+        }
+    }
+
+    public boolean noHayReyEnemigoOPiezaMismoColor(int xDestino, int yDestino, Pieza pieza) {
+        boolean puedeMover = true;
+        Casilla c = this.getCasillas()[xDestino][yDestino];
+        if (pieza == null) {
+            throw new IllegalArgumentException("Error, la pieza no existe.");
+        }
+        if (c.estaOcupada()) {
+            if (c.getPieza().getColor() == pieza.getColor()) {
+                puedeMover = false;
+                throw new IllegalArgumentException("Error, en la casilla destino hay una pieza del mismo color.");
+            } else if (c.getPieza().getTipoPieza() == TipoPieza.REY) {
+                puedeMover = false;
+                throw new IllegalArgumentException("Error, en la casilla destino está el rey enemigo.");
+            }
+        }
+        return puedeMover;
+    }
+
+    public boolean estaEnLimites(int x, int y) {
+        if (y < 0 || y > 7 || x < 0 || x > 7)
+            throw new IllegalArgumentException("La casilla seleccionada está fuera de los límites.");
+        else
+            return true;
+    }
+
+    public int posicionPieza(Pieza pieza) {
+        int posicionPieza = -1;
+        boolean existe = false;
+        if (pieza.getColor() == Color.BLANCO) {
+            for (int i = 0; i < this.getPiezasBlancas().size() && !existe; i++) {
+                if (this.getPiezasBlancas().get(i).equals(pieza)) {
+                    posicionPieza = i;
+                    existe = true;
                 }
             }
-            return tablero;
-        }
-
-        public boolean compruebaPiezasIntermedias(int xDestino, int yDestino, int x, int y) {
-            boolean posible = false;
-            int comprobacion1 = yDestino - y;
-            int comprobacion2 = xDestino - x;
-
-            int pasoFila;
-            if (comprobacion1 > 0) pasoFila = 1;
-            else if (comprobacion1 < 0) pasoFila = -1;
-            else pasoFila = 0;
-
-            int pasoColumna;
-            if (comprobacion2 > 0) pasoColumna = 1;
-            else if (comprobacion2 < 0) pasoColumna = -1;
-            else pasoColumna = 0;
-
-            int filaActual = y + pasoFila;
-            int columnaActual = x + pasoColumna;
-
-            while (filaActual != yDestino || columnaActual != xDestino) {
-                if (estaOcupado(filaActual, columnaActual)) {
-                    posible = true;
-                } else {
-                    filaActual += pasoFila;
-                    columnaActual += pasoColumna;
+        } else {
+            for (int i = 0; i < this.getPiezasNegras().size() && !existe; i++) {
+                if (this.getPiezasNegras().get(i).equals(pieza)) {
+                    posicionPieza = i;
+                    existe = true;
                 }
-                return posible;
             }
-            return false;
         }
+        return posicionPieza;
+    }
+
+    public String mostrarTablero() {
+        String tablero = "";
+        for (int y = 0; y < 8; y++) {
+            tablero += "\n" + y;
+            for (int x = 0; x < 8; x++) {
+                tablero += this.getCasillas()[x][y].getIcono();
+            }
+        }
+        return tablero;
+    }
+
+    public boolean compruebaPiezasIntermedias(int xDestino, int yDestino, int x, int y) {
+        boolean posible = false;
+        int comprobacion1 = yDestino - y;
+        int comprobacion2 = xDestino - x;
+
+        int pasoFila;
+        if (comprobacion1 > 0) pasoFila = 1;
+        else if (comprobacion1 < 0) pasoFila = -1;
+        else pasoFila = 0;
+
+        int pasoColumna;
+        if (comprobacion2 > 0) pasoColumna = 1;
+        else if (comprobacion2 < 0) pasoColumna = -1;
+        else pasoColumna = 0;
+
+        int filaActual = y + pasoFila;
+        int columnaActual = x + pasoColumna;
+
+        while (filaActual != yDestino || columnaActual != xDestino) {
+            if (estaOcupado(filaActual, columnaActual)) {
+                posible = true;
+            } else {
+                filaActual += pasoFila;
+                columnaActual += pasoColumna;
+            }
+            return posible;
+        }
+        return false;
+    }
 }
