@@ -2,8 +2,13 @@ package modelo.pieza;
 import modelo.Color;
 import modelo.Pieza;
 import modelo.TipoPieza;
+import javax.xml.bind.annotation.XmlRootElement;
+@XmlRootElement
 
 public class Peon extends Pieza {
+
+    public Peon (){}
+
     public Peon(int x, int y, Color color) {
       super(x, y, color, 1);
       this.tipoPieza = TipoPieza.PEON;
@@ -37,7 +42,7 @@ public class Peon extends Pieza {
 
         // Movimiento inicial doble
         if (diferenciaColumna == 0 && diferenciaFila == 2 * direccion){
-            if (getColor() == Color.BLANCO && getFila() == 6 || getColor() == Color.NEGRO && getFila() == 1) return true;
+            if (getColor() == Color.BLANCO && getY() == 6 || getColor() == Color.NEGRO && getY() == 1) return true;
         }
         return false;
     }
