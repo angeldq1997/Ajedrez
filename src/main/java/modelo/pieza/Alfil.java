@@ -9,9 +9,9 @@ public class Alfil extends Pieza {
         super(x, y, color, 3);
         this.tipoPieza = TipoPieza.ALFIL;
         if (this.getColor() == Color.BLANCO) {
-            this.setIcono('♔');
+            this.setIcono('♗');
         } else {
-            this.setIcono('♚');
+            this.setIcono('♝');
         }
 
     }
@@ -20,7 +20,7 @@ public class Alfil extends Pieza {
     public boolean puedeMover(int xDestino, int yDestino) {
         boolean posible = false;
         int diferenciaFilas = yDestino - this.getY();
-        int diferenciaColumnas = xDestino -this.getX();
+        int diferenciaColumnas = xDestino - this.getX();
         if (Math.abs(diferenciaFilas) == Math.abs(diferenciaColumnas)){
             posible = true;
         }else{

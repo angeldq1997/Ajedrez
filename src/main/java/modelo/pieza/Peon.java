@@ -33,11 +33,11 @@ public class Peon extends Pieza {
         }
 
         // Movimiento normal, 1 hacia delante
-        if (diferenciaColumna == 0 && diferenciaFila == direccion) return false;
+        if (diferenciaColumna == 0 && diferenciaFila == direccion) return true;
 
         // Movimiento inicial doble
         if (diferenciaColumna == 0 && diferenciaFila == 2 * direccion){
-            if (getColor() == Color.BLANCO && getFila() == 6 || getColor() == Color.NEGRO && getFila() == 1) return true;
+            if (getColor() == Color.BLANCO && getY() == 6 || getColor() == Color.NEGRO && getY() == 1) return true;
         }
         return false;
     }
