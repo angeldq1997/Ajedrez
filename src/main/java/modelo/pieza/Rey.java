@@ -2,8 +2,13 @@ package modelo.pieza;
 import modelo.Color;
 import modelo.Pieza;
 import modelo.TipoPieza;
+import javax.xml.bind.annotation.XmlRootElement;
+@XmlRootElement
 
 public class Rey extends Pieza {
+
+    public Rey (){}
+
     public Rey(int x, int y, Color color) {
         super(x, y, color, 100);
         this.tipoPieza = TipoPieza.REY;

@@ -1,8 +1,12 @@
 package modelo;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.Objects;
-
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public abstract class Pieza implements Serializable {
     private int x;
     private int y;
@@ -10,6 +14,9 @@ public abstract class Pieza implements Serializable {
     private char icono;
     protected TipoPieza tipoPieza;
     private int puntos;
+
+    public Pieza() {
+    }
 
     public Pieza(int x, int y, Color color, int puntos) {
         if (color == null){

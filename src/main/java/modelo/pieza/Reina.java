@@ -3,7 +3,15 @@ import modelo.Color;
 import modelo.Pieza;
 import modelo.TipoPieza;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
+
+
 public class Reina extends Pieza {
+
+    public Reina() {
+    }
 
     public Reina(int x, int y, Color color) {
         super(x, y, color, 9);
@@ -23,17 +31,17 @@ public class Reina extends Pieza {
      */
     @Override
     public boolean puedeMover(int filaDestino, int columnaDestino) {
-        int diferenciaFila = Math.abs(filaDestino - getFila());
-        int diferenciaColumna = Math.abs(columnaDestino - getColumna());
+        int diferenciaFila = Math.abs(filaDestino - getY());
+        int diferenciaColumna = Math.abs(columnaDestino - getX());
 
         // Comprobamos que la reina no se quede en la misma posición
         if (diferenciaFila == 0 && diferenciaColumna == 0) return false;
 
         // Movimiento vertical
-        if (getColumna() == columnaDestino) return true;
+        if (getX() == columnaDestino) return true;
 
         // Movimiento horizontal
-        if (getFila() == filaDestino) return true;
+        if (getY() == filaDestino) return true;
 
         // Movimiento diagonal
         if (diferenciaFila == diferenciaColumna) return true;

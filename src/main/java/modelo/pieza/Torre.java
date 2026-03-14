@@ -1,10 +1,14 @@
 package modelo.pieza;
-
 import modelo.Color;
 import modelo.Pieza;
 import modelo.TipoPieza;
+import javax.xml.bind.annotation.XmlRootElement;
+@XmlRootElement
 
 public class Torre extends Pieza {
+
+    public Torre (){}
+
     public Torre(int x, int y, Color color) {
         super(x, y, color, 5);
         this.tipoPieza = TipoPieza.TORRE;
