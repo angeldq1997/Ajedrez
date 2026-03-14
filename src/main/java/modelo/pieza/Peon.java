@@ -38,7 +38,7 @@ public class Peon extends Pieza {
         }
 
         // Movimiento normal, 1 hacia delante
-        if (diferenciaColumna == 0 && diferenciaFila == direccion) return false;
+        if (diferenciaColumna == 0 && diferenciaFila == direccion) return true;
 
         // Movimiento inicial doble
         if (diferenciaColumna == 0 && diferenciaFila == 2 * direccion){

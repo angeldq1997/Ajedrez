@@ -122,7 +122,24 @@ public class Tablero {
             if (p.getY() == y && p.getX() == x) {
                 return true;
             }
+        }
+        return false;
+    }
 
+    public boolean hayPiezasIntermedias(int xInicial, int yInicial, int xDestino, int yDestino) {
+        int filDir = Integer.signum(yDestino - yInicial); // +1, -1, o 0
+        int colDir = Integer.signum(xDestino - xInicial); // +1, -1, o 0
+
+        int filaActual = yInicial + filDir;
+        int colActual = xInicial + colDir;
+
+        // Recorre mientras no llegue a la casilla de destino
+        while (filaActual != yDestino || colActual != xDestino) {
+            if (this.casillas[colActual][filaActual].estaOcupada()) {
+                return true; // Hay una pieza en el camino
+            }
+            filaActual += filDir;
+            colActual += colDir;
         }
         return false;
     }
@@ -224,30 +241,30 @@ public class Tablero {
         }
     }
 
-    public boolean noHayReyEnemigoOPiezaMismoColor(int xDestino, int yDestino, Pieza pieza){
+    public boolean noHayReyEnemigoOPiezaMismoColor(int xDestino, int yDestino, Pieza pieza) {
         boolean puedeMover = true;
         Casilla c = this.getCasillas()[xDestino][yDestino];
-        if (pieza == null){
+        if (pieza == null) {
             throw new IllegalArgumentException("Error, la pieza no existe.");
         }
-        if (c.estaOcupada()){
-            if( c.getPieza().getColor() == pieza.getColor()) {
+        if (c.estaOcupada()) {
+            if (c.getPieza().getColor() == pieza.getColor()) {
                 puedeMover = false;
                 throw new IllegalArgumentException("Error, en la casilla destino hay una pieza del mismo color.");
-            }else if (c.getPieza().getTipoPieza() == TipoPieza.REY){
+            } else if (c.getPieza().getTipoPieza() == TipoPieza.REY) {
                 puedeMover = false;
                 throw new IllegalArgumentException("Error, en la casilla destino está el rey enemigo.");
             }
         }
 
-    public boolean estaEnLimites(int x, int y){
+    public boolean estaEnLimites(int x, int y) {
         if (y < 0 || y > 7 || x < 0 || x > 7)
             throw new IllegalArgumentException("La casilla seleccionada está fuera de los límites.");
         else
             return true;
     }
 
-    public int posicionPieza(Pieza pieza){
+    public int posicionPieza(Pieza pieza) {
         int posicionPieza = -1;
         boolean existe = false;
         if (pieza.getColor() == Color.BLANCO) {
@@ -257,7 +274,7 @@ public class Tablero {
                     existe = true;
                 }
             }
-        }else{
+        } else {
             for (int i = 0; i < this.getPiezasNegras().size() && !existe; i++) {
                 if (this.getPiezasNegras().get(i).equals(pieza)) {
                     posicionPieza = i;
@@ -270,7 +287,7 @@ public class Tablero {
     public String mostrarTablero() {
         String tablero = "";
         for (int y = 0; y < 8; y++) {
-            tablero += "\n"+y;
+            tablero += "\n" + y;
             for (int x = 0; x < 8; x++) {
                 tablero += this.getCasillas()[x][y].getIcono();
             }
@@ -278,28 +295,28 @@ public class Tablero {
         return tablero;
     }
 
-    public boolean compruebaPiezasIntermedias(int nuevaFila, int nuevaColumna){
+    public boolean compruebaPiezasIntermedias(int xDestino, int yDestino, int x, int y) {
         boolean posible = false;
-        int comprobacion1 = nuevaFila - fila;
-        int comprobacion2 = nuevaColumna -columna;
+        int comprobacion1 = yDestino - y;
+        int comprobacion2 = xDestino - x;
 
         int pasoFila;
         if (comprobacion1 > 0) pasoFila = 1;
-            else if (comprobacion1 < 0) pasoFila = -1;
-            else pasoFila = 0;
+        else if (comprobacion1 < 0) pasoFila = -1;
+        else pasoFila = 0;
 
         int pasoColumna;
-            if (comprobacion2 > 0) pasoColumna = 1;
-            else if (comprobacion2 < 0) pasoColumna = -1;
-            else pasoColumna = 0;
+        if (comprobacion2 > 0) pasoColumna = 1;
+        else if (comprobacion2 < 0) pasoColumna = -1;
+        else pasoColumna = 0;
 
-        int filaActual = fila + pasoFila;
-        int columnaActual = columna + pasoColumna;
+        int filaActual = y + pasoFila;
+        int columnaActual = x + pasoColumna;
 
-        while (filaActual != nuevaFila || columnaActual != nuevaColumna){
-            if (estaOcupado(filaActual,columnaActual)){
-                posible =  true;
-            }else{
+        while (filaActual != yDestino || columnaActual != xDestino) {
+            if (estaOcupado(filaActual, columnaActual)) {
+                posible = true;
+            } else {
                 filaActual += pasoFila;
                 columnaActual += pasoColumna;
             }

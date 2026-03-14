@@ -14,26 +14,24 @@ public class Alfil extends Pieza {
         super(columna, fila, color, 3);
         this.tipoPieza = TipoPieza.ALFIL;
         if (this.getColor() == Color.BLANCO) {
-            this.setIcono('♔');
+            this.setIcono('♗');
         } else {
-            this.setIcono('♚');
+            this.setIcono('♝');
         }
 
     }
 
     @Override
-    public boolean puedeMover(int filaDestino, int columnaDestina) {
-            boolean posible = false;
-            int diferenciafilas = filaDestino - this.getY();
-            int diferenciacolumnas = columnaDestina -this.getX();
-            if (Math.abs(diferenciafilas) == Math.abs(diferenciacolumnas)){
-                this.setY(filaDestino);
-                this.setX(columnaDestina);
-            }else{
-                System.out.println("Movimiento invalido.");
-                posible = false;
-            }
-            return posible;
+    public boolean puedeMover(int xDestino, int yDestino) {
+        boolean posible = false;
+        int diferenciaFilas = yDestino - this.getY();
+        int diferenciaColumnas = xDestino - this.getX();
+        if (Math.abs(diferenciaFilas) == Math.abs(diferenciaColumnas)){
+            posible = true;
+        }else{
+            throw  new IllegalArgumentException("Movimiento inválido.");
+        }
+        return posible;
     }
 
     @Override
