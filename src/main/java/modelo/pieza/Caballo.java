@@ -1,7 +1,12 @@
 package modelo.pieza;
 import modelo.*;
+import javax.xml.bind.annotation.XmlRootElement;
+@XmlRootElement
 
 public class Caballo extends Pieza implements Saltadora {
+
+    public Caballo () {}
+
     public Caballo(int x, int y, Color color) {
         super(x, y, color, 3);
         this.tipoPieza = TipoPieza.CABALLO;

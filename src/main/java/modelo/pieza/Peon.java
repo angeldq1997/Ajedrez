@@ -2,8 +2,13 @@ package modelo.pieza;
 import modelo.Color;
 import modelo.Pieza;
 import modelo.TipoPieza;
+import javax.xml.bind.annotation.XmlRootElement;
+@XmlRootElement
 
 public class Peon extends Pieza {
+
+    public Peon (){}
+
     public Peon(int x, int y, Color color) {
       super(x, y, color, 1);
       this.tipoPieza = TipoPieza.PEON;

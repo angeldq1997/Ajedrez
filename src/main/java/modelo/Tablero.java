@@ -66,22 +66,22 @@ public class Tablero {
             piezas.add(peon);
         }
         Torre torre = new Torre(0, 0, color);
-        Caballo caballo = new Caballo(1, 0, color);
-        Alfil alfil = new Alfil(2, 0, color);
-        Reina reina = new Reina(3, 0, color);
-        Rey rey = new Rey(4, 0, color);
-        Alfil alfil2 = new Alfil(5, 0, color);
-        Caballo caballo2 = new Caballo(6, 0, color);
-        Torre torre2 = new Torre(7, 0, color);
+        Caballo caballo = new Caballo(2, 0, color);
+        Alfil alfil = new Alfil(3, 0, color);
+        Reina reina = new Reina(4, 0, color);
+        Rey rey = new Rey(5, 0, color);
         piezas.add(torre);
-        piezas.add(torre2);
         piezas.add(caballo);
-        piezas.add(caballo2);
         piezas.add(alfil);
-        piezas.add(alfil2);
         piezas.add(reina);
         piezas.add(rey);
-        for (Pieza p : piezas) {
+        torre.setColumna(7);
+        piezas.add(torre);
+        caballo.setColumna(6);
+        piezas.add(caballo);
+        alfil.setColumna(5);
+        piezas.add(alfil);
+        for (Pieza p: piezas){
             p.asignarCasilla(this.casillas);
         }
     }
@@ -92,22 +92,22 @@ public class Tablero {
             piezas.add(peon);
         }
         Torre torre = new Torre(0, 7, color);
-        Caballo caballo = new Caballo(1, 7, color);
-        Alfil alfil = new Alfil(2, 7, color);
-        Reina reina = new Reina(3, 7, color);
-        Rey rey = new Rey(4, 7, color);
-        Alfil alfil2 = new Alfil(5, 7, color);
-        Caballo caballo2 = new Caballo(6, 7, color);
-        Torre torre2 = new Torre(7, 7, color);
+        Caballo caballo = new Caballo(2, 7, color);
+        Alfil alfil = new Alfil(3, 7, color);
+        Reina reina = new Reina(4, 7, color);
+        Rey rey = new Rey(5, 7, color);
         piezas.add(torre);
-        piezas.add(torre2);
         piezas.add(caballo);
-        piezas.add(caballo2);
         piezas.add(alfil);
-        piezas.add(alfil2);
         piezas.add(reina);
         piezas.add(rey);
-        for (Pieza p : piezas) {
+        torre.setColumna(7);
+        piezas.add(torre);
+        caballo.setColumna(6);
+        piezas.add(caballo);
+        alfil.setColumna(5);
+        piezas.add(alfil);
+        for (Pieza p: piezas){
             p.asignarCasilla(this.casillas);
         }
     }
@@ -146,8 +146,8 @@ public class Tablero {
 
     /**
      * Método con el que obtenemos el lugar exacto de la pieza
-     * @param x Columna en la que se encuentra la pieza
-     * @param y Fila en la que se encuentra la pieza
+     * @param columna Columna en la que se encuentra la pieza
+     * @param fila Fila en la que se encuentra la pieza
      * @return Devuelve la pieza o null, si no hay pieza en esa casilla
      */
     public Pieza getPieza(int x, int y) {
@@ -160,22 +160,22 @@ public class Tablero {
         return null;
     }
 
-    public void vaciarPiezas() {
-        for (Pieza p : this.piezasBlancas) {
+    public void vaciarPiezas(){
+        for (Pieza p: this.piezasBlancas){
             piezasEliminadas.add(p);
             piezasBlancas.remove(p);
         }
-        for (Pieza p2 : this.piezasNegras) {
+        for (Pieza p2: this.piezasNegras){
             piezasEliminadas.add(p2);
             piezasNegras.remove(p2);
         }
     }
 
-    public Tablero copiarTablero() {
-        return new Tablero(this.piezasBlancas, this.piezasNegras, this.piezasEliminadas, this.casillas);
+    public Tablero copiarTablero(){
+        return new Tablero(this.piezasBlancas, this.piezasNegras, this.piezasEliminadas,this.casillas);
     }
 
-    public void resetearTablero() {
+    public void resetearTablero(){
         this.piezasEliminadas = new ArrayList<Pieza>();
         this.casillas = new Casilla[8][8];
 
@@ -190,21 +190,24 @@ public class Tablero {
         if (pieza != null && (color == Color.BLANCO || color == Color.NEGRO) && estaEnLimites(x, y)) {
             if (color == Color.BLANCO)
                 this.piezasBlancas.add(pieza);
-            else
+            }else{
                 this.piezasNegras.add(pieza);
+            }
         }
         return estaAgregada;
     }
 
-    public int puntuacionColor(Color color) {
+    public int puntuacionColor(Color color){
         int puntuacionTotal = 0;
-        if (color == Color.BLANCO) {
-            for (Pieza p : piezasBlancas)
+        if (color == Color.BLANCO){
+            for (Pieza p: piezasBlancas){
                 puntuacionTotal += p.getPuntos();
-        } else if (color == Color.NEGRO) {
-            for (Pieza p : piezasNegras)
+            }
+        }else if (color == Color.NEGRO){
+            for (Pieza p: piezasNegras){
                 puntuacionTotal += p.getPuntos();
-        } else {
+            }
+        }else{
             throw new IllegalArgumentException("Ha introducido un color incorrecto, debe introducir NEGRO o BLANCO.");
         }
         return puntuacionTotal;
@@ -253,8 +256,6 @@ public class Tablero {
                 throw new IllegalArgumentException("Error, en la casilla destino está el rey enemigo.");
             }
         }
-        return puedeMover;
-    }
 
     public boolean estaEnLimites(int x, int y) {
         if (y < 0 || y > 7 || x < 0 || x > 7)
@@ -281,7 +282,6 @@ public class Tablero {
                 }
             }
         }
-        return posicionPieza;
     }
 
     public String mostrarTablero() {
@@ -322,6 +322,19 @@ public class Tablero {
             }
             return posible;
         }
-        return false;
+
+      public void mostrarPiezasMuertas() {
+        if (piezasEliminadas.isEmpty()) {
+            System.out.println("No hay piezas eliminadas.");
+            return;
+        }
+
+        System.out.println("Piezas eliminadas:");
+        for (Pieza p : piezasEliminadas) {
+            // usamos getters directamente porque toString() está vacío
+            System.out.println(
+                    p.getTipoPieza() + " " + p.getColor() + " (" + p.getFila() + "," + p.getColumna() + ")"
+            );
+        }
     }
 }

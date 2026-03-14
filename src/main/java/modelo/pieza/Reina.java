@@ -3,7 +3,15 @@ import modelo.Color;
 import modelo.Pieza;
 import modelo.TipoPieza;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
+
+
 public class Reina extends Pieza {
+
+    public Reina() {
+    }
 
     public Reina(int x, int y, Color color) {
         super(x, y, color, 9);

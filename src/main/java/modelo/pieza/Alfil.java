@@ -1,12 +1,17 @@
 package modelo.pieza;
 import modelo.Color;
 import modelo.Pieza;
+import modelo.Tablero;
 import modelo.TipoPieza;
+import javax.xml.bind.annotation.XmlRootElement;
+@XmlRootElement
 
 public class Alfil extends Pieza {
 
-    public Alfil(int x, int y, Color color) {
-        super(x, y, color, 3);
+    public Alfil (){}
+
+    public Alfil(int columna, int fila, Color color) {
+        super(columna, fila, color, 3);
         this.tipoPieza = TipoPieza.ALFIL;
         if (this.getColor() == Color.BLANCO) {
             this.setIcono('♗');
@@ -31,6 +36,15 @@ public class Alfil extends Pieza {
 
     @Override
     public Pieza copiar() {
-        return new Alfil(this.getX(), this.getY(), this.getColor());
+        return new Alfil(getX(), getY(), getColor());
     }
+
+    public String toString() {
+        if (this.getColor() == Color.BLANCO) {
+            return "♗";
+        } else {
+            return "♝";
+        }
+    }
+
 }
