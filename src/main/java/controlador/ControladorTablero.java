@@ -16,31 +16,26 @@ public class ControladorTablero {
         this.tableroActual = tableroActual;
     }
 
-    public Color getColorTurno() {
-        return colorTurno;
-    }
-
     public void setColorTurno(Color colorTurno) {
         this.colorTurno = colorTurno;
-    }
-
-    public Pieza getPiezaActual() {
-        return piezaActual;
     }
 
     public void setPiezaActual(Pieza piezaActual) {
         this.piezaActual = piezaActual;
     }
 
+    /**
+     * Función que inicia la aplicación mostrando menu principal, estableciendo el tablero a su estado inicial
+     */
     public void iniciarApp() {
-        menuPrincipal();
         Tablero t = new Tablero();
         setTableroActual(t);
         setColorTurno(Color.BLANCO);
+        menuPrincipal();
     }
 
-
     /**
+     * Función que muestra el menú principal, moviendo al usuario por las diferentes opciones y saliendo de este cuando lo desea el usuario
      * 1. Seleccionar pieza
      * 2. Reiniciar tablero
      * 3. Cargar tablero
@@ -50,7 +45,6 @@ public class ControladorTablero {
     public void menuPrincipal() {
         boolean enMenu = true;
         estadoActual();
-
         do {
             VistaTablero.mostrarMenuPrincipal();
             int opcion = Utils.pideIntAcotado(0, 4, "Introduce opción.", "Error, debe introducir un número entre 0 y 4");
@@ -96,8 +90,8 @@ public class ControladorTablero {
         setPiezaActual(pieza);
         VistaTablero.mostrarMensaje("Pieza seleccionada: " + pieza.toString());
         do {
-            int opcion = Utils.pideIntAcotado(0, 1, "Introduce opción.", "Error, debe introducir un número entre 0 y 1");
             VistaTablero.mostrarMenuPiezaSeleccionada();
+            int opcion = Utils.pideIntAcotado(0, 1, "Introduce opción.", "Error, debe introducir un número entre 0 y 1");
             switch (opcion) {
                 case 0:
                     VistaTablero.mostrarMensaje("Ha seleccionado deshacer la selección de pieza.");
