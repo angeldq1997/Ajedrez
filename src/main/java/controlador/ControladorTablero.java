@@ -52,8 +52,8 @@ public class ControladorTablero {
         estadoActual();
 
         do {
-            int opcion = Utils.pideIntAcotado(0, 4, "Introduce opción.", "Error, debe introducir un número entre 0 y 4");
             VistaTablero.mostrarMenuPrincipal();
+            int opcion = Utils.pideIntAcotado(0, 4, "Introduce opción.", "Error, debe introducir un número entre 0 y 4");
             switch (opcion) {
                 case 0:
                     VistaTablero.mostrarMensaje("Ha seleccionado salir del programa. Gracias por su tiempo.");
@@ -105,7 +105,7 @@ public class ControladorTablero {
                     break;
 
                 case 1:
-                    if ( realizaMovimientoPieza() ){
+                    if (realizaMovimientoPieza()) {
                         quedarseEnMenu = false;
                     }
                     break;
@@ -117,13 +117,31 @@ public class ControladorTablero {
     }
 
     public void estadoActual() {
-        //TODO: check jaque a ambos reyes
-        hayJaque();
+        mostrarJaques();
         VistaTablero.mostrarMensaje("Es el turno de las piezas de color: " + colorTurno);
         tableroActual.mostrarPiezasMuertas();
         VistaTablero.mostrarMensaje("La puntuación actual de piezas blancas en juego es: " + tableroActual.puntuacionColor(Color.BLANCO));
         VistaTablero.mostrarMensaje("La puntuación actual de piezas negras en juego es: " + tableroActual.puntuacionColor(Color.NEGRO));
         mostrarTablero();
+    }
+
+    public void mostrarJaques(){
+        String jaque = "";
+        for (Pieza pieza: this.tableroActual.getPiezasBlancas()){
+            if( this.tableroActual.hayJaque(pieza) ){
+                jaque += "\nHay un jaque al rey negro por parte de: " + pieza;
+            }
+        }
+        for (Pieza pieza: this.tableroActual.getPiezasNegras()){
+            if( this.tableroActual.hayJaque(pieza) ){
+                jaque += "\nHay un jaque al rey blanco por parte de: " + pieza;
+            }
+        }
+        if (jaque.isEmpty()){
+            VistaTablero.mostrarMensaje("No hay jaque actualmente a ningún rey.");
+        }else{
+            VistaTablero.mostrarMensaje(jaque);
+        }
     }
 
     public Pieza seleccionarPieza() {
@@ -133,7 +151,7 @@ public class ControladorTablero {
         p = tableroActual.getPieza(x, y);
         if (p == null) {
             throw new IllegalArgumentException("Error, la pieza con las posiciones introducidas no se encuentra.");
-        } else if (p.getColor() != colorTurno){
+        } else if (p.getColor() != colorTurno) {
             throw new IllegalArgumentException("ERROR, la pieza seleccionada es del equipo contrario.");
         }
         VistaTablero.mostrarMensaje("Pieza seleccionada correctamente.");
@@ -148,65 +166,19 @@ public class ControladorTablero {
         int x = Utils.pideEntero("Introduzca columna destino para el movimiento.", "No ha introducido un número entero.");
         int y = Utils.pideEntero("Introduzca fila destino para el movimiento.", "No ha introducido un número entero.");
         boolean movimientoCorrecto = false;
-        try{
-            if( !movimientoPiezaCorrecto(x, y, piezaActual) ){
+        try {
+            if (!this.tableroActual.movimientoPiezaCorrecto(x, y, piezaActual)) {
                 movimientoCorrecto = false;
-            } else{
+            } else {
                 movimientoCorrecto = true;
             }
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             VistaTablero.mostrarMensaje(e.getMessage());
         }
-        if (this.colorTurno == Color.BLANCO){
+        if (this.colorTurno == Color.BLANCO) {
             this.colorTurno = Color.NEGRO;
-        }else{
-            this.colorTurno = Color.BLANCO;
-        }
-        return movimientoCorrecto;
-    }
-
-    public boolean movimientoPiezaCorrecto(int xDestino, int yDestino, Pieza pieza) {
-        boolean movimientoCorrecto = false;
-
-        if (!this.tableroActual.estaEnLimites(xDestino, yDestino)) {
-            VistaTablero.mostrarError("Fuera de límites.");
-        }
-        if (pieza != null && !pieza.puedeMover(xDestino, yDestino)) {
-            throw new IllegalArgumentException("ERROR: Fuera de las casillas disponibles de movimiento.");
-        }
-        if (!(pieza instanceof Saltadora)) {
-            if (tableroActual.hayPiezasIntermedias(pieza.getX(), pieza.getY(), xDestino, yDestino)) {
-                throw new IllegalArgumentException("ERROR: Hay una pieza en medio del camino.");
-            }
-        }
-
-        Casilla cInicio = tableroActual.getCasillas()[pieza.getX()][pieza.getY()];
-        Casilla cDestino = tableroActual.getCasillas()[xDestino][yDestino];
-
-        if (tableroActual.noHayReyEnemigoOPiezaMismoColor(xDestino, yDestino, pieza)) {
-            if (cDestino.estaOcupada()) {
-                //CASILLA DESTINO ESTÁ OCUPADA POR ENEMIGO
-                VistaTablero.mostrarMensaje("La casilla destino tiene una pieza: " + cDestino.getPieza() + " se procede a su captura y eliminación.");
-                tableroActual.eliminarPieza(cDestino.getPieza());
-
-                cInicio.unsetPieza();
-                cDestino.unsetPieza();
-                cDestino.setPieza(pieza);
-                pieza.setX(xDestino);
-                pieza.setY(yDestino);
-                movimientoCorrecto = true;
-                VistaTablero.mostrarMensaje("Pieza movida al destino capturando correctamente.");
-            } else {
-                //CUANDO ESTÁ VACÍA LA CASILLA DESTINO
-                cInicio.unsetPieza();
-                cDestino.setPieza(pieza);
-                pieza.setX(xDestino);
-                pieza.setY(yDestino);
-                movimientoCorrecto = true;
-                VistaTablero.mostrarMensaje("Pieza movida al destino correctamente.");
-            }
         } else {
-            VistaTablero.mostrarMensaje("No es posible mover la pieza a la posición seleccionada.");
+            this.colorTurno = Color.BLANCO;
         }
         return movimientoCorrecto;
     }
