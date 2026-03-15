@@ -342,6 +342,74 @@ public class Tablero {
         pieza.setY(-1);
     }
 
+    public boolean hayJaque(Pieza pieza) {
+        boolean hayJaque = false;
+        if (pieza.getColor() == Color.BLANCO) {
+            try {
+                movimientoPiezaCorrecto(this.getPiezasNegras().get(16).getX(), this.getPiezasNegras().get(16).getY(), pieza);
+            } catch (IllegalArgumentException e) {
+                if (e.getMessage().equalsIgnoreCase("Error, en la casilla destino está el rey enemigo.")) {
+                    hayJaque = true;
+                }
+            }
+        }else{
+            try {
+                movimientoPiezaCorrecto(this.getPiezasBlancas().get(16).getX(), this.getPiezasNegras().get(16).getY(), pieza);
+            } catch (IllegalArgumentException e) {
+                if (e.getMessage().equalsIgnoreCase("Error, en la casilla destino está el rey enemigo.")) {
+                    hayJaque = true;
+                }
+            }
+        }
+        return hayJaque;
+    }
+
+    public boolean movimientoPiezaCorrecto(int xDestino, int yDestino, Pieza pieza) {
+        boolean movimientoCorrecto = false;
+
+        if (!this.estaEnLimites(xDestino, yDestino)) {
+            VistaTablero.mostrarError("Fuera de límites.");
+        }
+        if (pieza != null && !pieza.puedeMover(xDestino, yDestino)) {
+            throw new IllegalArgumentException("ERROR: Fuera de las casillas disponibles de movimiento.");
+        }
+        if (!(pieza instanceof Saltadora)) {
+            if (this.hayPiezasIntermedias(pieza.getX(), pieza.getY(), xDestino, yDestino)) {
+                throw new IllegalArgumentException("ERROR: Hay una pieza en medio del camino.");
+            }
+        }
+
+        Casilla cInicio = this.getCasillas()[pieza.getX()][pieza.getY()];
+        Casilla cDestino = this.getCasillas()[xDestino][yDestino];
+
+        if (this.noHayReyEnemigoOPiezaMismoColor(xDestino, yDestino, pieza)) {
+            if (cDestino.estaOcupada()) {
+                //CASILLA DESTINO ESTÁ OCUPADA POR ENEMIGO
+                VistaTablero.mostrarMensaje("La casilla destino tiene una pieza: " + cDestino.getPieza() + " se procede a su captura y eliminación.");
+                this.eliminarPieza(cDestino.getPieza());
+
+                cInicio.unsetPieza();
+                cDestino.unsetPieza();
+                cDestino.setPieza(pieza);
+                pieza.setX(xDestino);
+                pieza.setY(yDestino);
+                movimientoCorrecto = true;
+                VistaTablero.mostrarMensaje("Pieza movida al destino capturando correctamente.");
+            } else {
+                //CUANDO ESTÁ VACÍA LA CASILLA DESTINO
+                cInicio.unsetPieza();
+                cDestino.setPieza(pieza);
+                pieza.setX(xDestino);
+                pieza.setY(yDestino);
+                movimientoCorrecto = true;
+                VistaTablero.mostrarMensaje("Pieza movida al destino correctamente.");
+            }
+        } else {
+            VistaTablero.mostrarMensaje("No es posible mover la pieza a la posición seleccionada.");
+        }
+        return movimientoCorrecto;
+    }
+
     @Override
     public String toString() {
         String tablero = "";
