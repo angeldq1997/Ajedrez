@@ -62,16 +62,22 @@ public class Utils {
      * @param mensajeConfirmar Mensaje para pedir de forma personalizada la confirmación al usuario
      * @return Devuelve TRUE si acepta y FALSE si introduce cualquier input salvo "SI" en texto
      */
-    public static boolean confirmarInput(String mensajeConfirmar){
+    public static boolean confirmarInput(String mensajeConfirmar, String mensajeConfirmacion){
         boolean usuarioAcepta = false;
         VistaTablero.mostrarMensaje(mensajeConfirmar);
         String confirmar = validarString("Introduzca SI para confirmar o NO para cancelar.");
         if (confirmar.equalsIgnoreCase("SI")){
             usuarioAcepta = true;
+            VistaTablero.mostrarMensaje(mensajeConfirmacion);
         }
         return usuarioAcepta;
     }
 
+    /**
+     * Función para validar una cadena de texto introducida por el usuario (que no esté vacía)
+     * @param mensajeAPedir Cadena de texto con mensaje personalizado para pedir el texto
+     * @return Devuelve la cadena validada, si está vacía lanza excepción
+     */
     public static String validarString(String mensajeAPedir){
         Scanner keyboard =  new Scanner(System.in);
         String cadenaAValidar = "";
