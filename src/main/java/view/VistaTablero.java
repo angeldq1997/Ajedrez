@@ -1,7 +1,5 @@
 package view;
 
-import controlador.ControladorTablero;
-
 public class VistaTablero {
 
     /**
@@ -22,18 +20,32 @@ public class VistaTablero {
         System.out.println("ERROR: " + mensaje);
     }
 
+    /**
+     * Muestra el menú principal con un diseño de caja y bordes dobles.
+     */
     public static void mostrarMenuPrincipal() {
-        VistaTablero.mostrarMensaje("\n--- MENÚ PRINCIPAL ---");
-        VistaTablero.mostrarMensaje("0. Salir");
-        VistaTablero.mostrarMensaje("1. Seleccionar pieza");
-        VistaTablero.mostrarMensaje("2. Reiniciar tablero");
-        VistaTablero.mostrarMensaje("3. Cargar tablero");
-        VistaTablero.mostrarMensaje("4. Guardar tablero");
+        VistaTablero.mostrarMensaje("\n╔═══════════════════════════════════════╗");
+        VistaTablero.mostrarMensaje("║         AJEDREZ - MENÚ PRINCIPAL      ║");
+        VistaTablero.mostrarMensaje("╠═══════════════════════════════════════╣");
+        VistaTablero.mostrarMensaje("║  1.  Seleccionar pieza                ║");
+        VistaTablero.mostrarMensaje("║  2.  Reiniciar tablero                ║");
+        VistaTablero.mostrarMensaje("║  3.  Cargar tablero                   ║");
+        VistaTablero.mostrarMensaje("║  4.  Guardar tablero                  ║");
+        VistaTablero.mostrarMensaje("║  0.  Salir                            ║");
+        VistaTablero.mostrarMensaje("╚═══════════════════════════════════════╝");
+        VistaTablero.mostrarMensaje("❯ Seleccione una opción: ");
     }
 
+    /**
+     * Muestra el submenú de acción para una pieza ya seleccionada.
+     */
     public static void mostrarMenuPiezaSeleccionada() {
-        VistaTablero.mostrarMensaje("\n--- PIEZA SELECCIONADA ---");
-        VistaTablero.mostrarMensaje("0. Cancelar");
-        VistaTablero.mostrarMensaje("1. Mover");
+        VistaTablero.mostrarMensaje("\n┌───────────────────────────┐");
+        VistaTablero.mostrarMensaje("│    PIEZA SELECCIONADA     │");
+        VistaTablero.mostrarMensaje("├───────────────────────────┤");
+        VistaTablero.mostrarMensaje("│  [1] Mover pieza          │");
+        VistaTablero.mostrarMensaje("│  [0] Cancelar             │");
+        VistaTablero.mostrarMensaje("└───────────────────────────┘");
+        VistaTablero.mostrarMensaje("❯ ¿Qué desea hacer? ");
     }
 }
