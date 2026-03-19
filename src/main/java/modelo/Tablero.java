@@ -2,12 +2,44 @@ package modelo;
 import modelo.pieza.*;
 import view.VistaTablero;
 
+import javax.xml.bind.annotation.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Tablero {
+@XmlRootElement(name = "tablero")
+@XmlAccessorType(XmlAccessType.FIELD)
+public class Tablero implements Serializable {
+    @XmlElementWrapper(name = "PiezasBlancas")
+    @XmlElements({
+            @XmlElement(name= "Alfil", type = Alfil.class),
+            @XmlElement(name= "Caballo", type = Caballo.class),
+            @XmlElement(name= "Peon", type = Peon.class),
+            @XmlElement(name= "Reina", type = Reina.class),
+            @XmlElement(name= "Rey", type = Rey.class),
+            @XmlElement(name= "Torre", type = Torre.class)
+    })
     private ArrayList<Pieza> piezasBlancas;
+    @XmlElementWrapper(name = "PiezasNegras")
+    @XmlElements({
+            @XmlElement(name= "Alfil", type = Alfil.class),
+            @XmlElement(name= "Caballo", type = Caballo.class),
+            @XmlElement(name= "Peon", type = Peon.class),
+            @XmlElement(name= "Reina", type = Reina.class),
+            @XmlElement(name= "Rey", type = Rey.class),
+            @XmlElement(name= "Torre", type = Torre.class)
+    })
     private ArrayList<Pieza> piezasNegras;
+    @XmlElementWrapper(name = "PiezasEliminadas")
+    @XmlElements({
+            @XmlElement(name= "Alfil", type = Alfil.class),
+            @XmlElement(name= "Caballo", type = Caballo.class),
+            @XmlElement(name= "Peon", type = Peon.class),
+            @XmlElement(name= "Reina", type = Reina.class),
+            @XmlElement(name= "Rey", type = Rey.class),
+            @XmlElement(name= "Torre", type = Torre.class)
+    })
     private ArrayList<Pieza> piezasEliminadas;
+    @XmlElement
     private Casilla[][] casillas;
 
     public Tablero(ArrayList<Pieza> piezasBlancas, ArrayList<Pieza> piezasNegras, ArrayList<Pieza> piezasEliminadas, Casilla[][] casillas) {
@@ -17,9 +49,13 @@ public class Tablero {
         this.casillas = casillas;
     }
 
-    public Tablero() {
+    public Tablero(){
+
+    }
+
+    public Tablero(int maxX, int maxY) {
         this.piezasEliminadas = new ArrayList<Pieza>();
-        this.casillas = new Casilla[8][8];
+        this.casillas = new Casilla[maxX][maxY];
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 8; x++) {
                 this.casillas[x][y] = new Casilla();
@@ -61,6 +97,11 @@ public class Tablero {
         return casillas;
     }
 
+    /**
+     * Función que coloca las piezas en la zona superior del tablero requiere el color y la lista
+     * @param color Color de las piezas a colocar
+     * @param piezas Array de piezas que van a colocarse
+     */
     private void colocarPiezasArriba(Color color, ArrayList<Pieza> piezas) {
         for (int x = 0; x < 8; x++) {
             Peon peon = new Peon(x, 1, color);
@@ -87,6 +128,11 @@ public class Tablero {
         }
     }
 
+    /**
+     * Función que coloca las piezas en la zona inferior del tablero requiere el color y la lista
+     * @param color Color de las piezas a colocar
+     * @param piezas Array de piezas que van a colocarse
+     */
     private void colocarPiezasAbajo(Color color, ArrayList<Pieza> piezas) {
         for (int x = 0; x < 8; x++) {
             Peon peon = new Peon(x, 6, color);
@@ -113,6 +159,12 @@ public class Tablero {
         }
     }
 
+    /**
+     * Comprobación de si está ocupada o no una posición
+     * @param x Columna de la casilla
+     * @param y Fila de la casilla
+     * @return Devuelve TRUE si está ocupado y FALSE si no lo está
+     */
     public boolean estaOcupado(int x, int y) {
         for (Pieza p : piezasBlancas) {
             if (p.getY() == y && p.getX() == x) {
@@ -127,6 +179,14 @@ public class Tablero {
         return false;
     }
 
+    /**
+     * Función que comprueba si hay piezas intermedias
+     * @param xInicial Columna inicial (normalmente donde se encuentra la pieza)
+     * @param yInicial Fila inicial (normalmente donde se encuentra la pieza)
+     * @param xDestino Columna final (normalmente donde se encuentra la pieza)
+     * @param yDestino Fila final (normalmente donde se encuentra la pieza)
+     * @return Devuelve TRUE si hay alguna pieza y FALSE si no ha encontrado ninguna
+     */
     public boolean hayPiezasIntermedias(int xInicial, int yInicial, int xDestino, int yDestino) {
         int filDir = Integer.signum(yDestino - yInicial); // +1, -1, o 0
         int colDir = Integer.signum(xDestino - xInicial); // +1, -1, o 0
@@ -146,7 +206,7 @@ public class Tablero {
     }
 
     /**
-     * Método con el que obtenemos el lugar exacto de la pieza
+     * Función con la cual obtenemos el lugar exacto de la pieza
      * @param x Columna en la que se encuentra la pieza
      * @param y Fila en la que se encuentra la pieza
      * @return Devuelve la pieza o null, si no hay pieza en esa casilla
@@ -161,6 +221,9 @@ public class Tablero {
         return null;
     }
 
+    /**
+     * Función que permite vaciar las piezas del tablero moviendo todas a eliminadas y quitándolas de los arrayList
+     */
     public void vaciarPiezas() {
         for (Pieza p : this.piezasBlancas) {
             piezasEliminadas.add(p);
@@ -172,24 +235,23 @@ public class Tablero {
         }
     }
 
+    /**
+     * Función que hace una copia del tablero con los datos que contiene
+     * @return Devuelve el tablero nuevo con los mismos datos
+     */
     public Tablero copiarTablero() {
         return new Tablero(this.piezasBlancas, this.piezasNegras, this.piezasEliminadas, this.casillas);
     }
 
-    public void resetearTablero() {
-        this.piezasEliminadas = new ArrayList<Pieza>();
-        this.casillas = new Casilla[8][8];
-
-        this.piezasNegras = new ArrayList<>();
-        colocarPiezasArriba(Color.NEGRO, this.piezasNegras);
-        this.piezasBlancas = new ArrayList<>();
-        colocarPiezasAbajo(Color.BLANCO, this.piezasBlancas);
-    }
-
-    public boolean agregarPieza(Pieza pieza, Color color, int x, int y) {
+    /**
+     * Función que permite agregarPieza al tablero dada una pieza concreta, un color y una posición
+     * @param pieza Pieza a agregar al tablero
+     * @return Devuelve TRUE si se ha podido agregar la pieza, FALSE si no ha podido agregarse
+     */
+    public boolean agregarPieza(Pieza pieza) {
         boolean estaAgregada = false;
-        if (pieza != null && (color == Color.BLANCO || color == Color.NEGRO) && estaEnLimites(x, y)) {
-            if (color == Color.BLANCO)
+        if (pieza != null && (pieza.getColor() == Color.BLANCO || pieza.getColor() == Color.NEGRO)) {
+            if (pieza.getColor() == Color.BLANCO)
                 this.piezasBlancas.add(pieza);
             else
                 this.piezasNegras.add(pieza);
@@ -197,6 +259,11 @@ public class Tablero {
         return estaAgregada;
     }
 
+    /**
+     * Función que genera una puntuación dado un color y devuelve esta
+     * @param color Color del equipo para generar la puntuación
+     * @return Devuelve la puntuación total
+     */
     public int puntuacionColor(Color color) {
         int puntuacionTotal = 0;
         if (color == Color.BLANCO) {
@@ -211,6 +278,9 @@ public class Tablero {
         return puntuacionTotal;
     }
 
+    /**
+     *
+     */
     private void asignacionColorCasillas() {
         Casilla[][] c = this.casillas;
         for (int y = 0; y < 8; y++) {
@@ -239,24 +309,37 @@ public class Tablero {
         }
     }
 
-    public boolean noHayReyEnemigoOPiezaMismoColor(int xDestino, int yDestino, Pieza pieza) {
-        boolean puedeMover = true;
+    /**
+     * Función que comprueba si hay un rey enemigo o una pieza del mismo color en la casilla destino
+     * @param xDestino Columna de la casilla destino
+     * @param yDestino Fila de la casilla destino
+     * @param pieza Pieza de la que se toma casilla inicial
+     * @return TRUE si hay rey enemigo o Pieza del mismo color y FALSE si no es el caso
+     */
+    public boolean hayReyEnemigoOPiezaMismoColor(int xDestino, int yDestino, Pieza pieza) {
+        boolean hayReyOPieza = false;
         Casilla c = this.getCasillas()[xDestino][yDestino];
         if (pieza == null) {
             throw new IllegalArgumentException("Error, la pieza no existe.");
         }
         if (c.estaOcupada()) {
             if (c.getPieza().getColor() == pieza.getColor()) {
-                puedeMover = false;
+                hayReyOPieza = true;
                 throw new IllegalArgumentException("Error, en la casilla destino hay una pieza del mismo color.");
             } else if (c.getPieza().getTipoPieza() == TipoPieza.REY) {
-                puedeMover = false;
+                hayReyOPieza = true;
                 throw new IllegalArgumentException("Error, en la casilla destino está el rey enemigo.");
             }
         }
-        return puedeMover;
+        return hayReyOPieza;
     }
 
+    /**
+     * Función para comprobar si está en los límites del tablero
+     * @param x Columna del tablero
+     * @param y Fila del tablero
+     * @return Devuelve TRUE si está en los límites y FALSE si se encuentra fuera de estos.
+     */
     public boolean estaEnLimites(int x, int y) {
         if (y < 0 || y > 7 || x < 0 || x > 7)
             throw new IllegalArgumentException("La casilla seleccionada está fuera de los límites.");
@@ -264,6 +347,11 @@ public class Tablero {
             return true;
     }
 
+    /**
+     * Función que busca la posición de una pieza en el arrayList a partir de la pieza
+     * @param pieza Pieza para conseguir su posición
+     * @return Entero con la posición de la pieza y -1 si no la encuentra
+     */
     public int posicionPieza(Pieza pieza) {
         int posicionPieza = -1;
         boolean existe = false;
@@ -285,6 +373,14 @@ public class Tablero {
         return posicionPieza;
     }
 
+    /**
+     * Función que comprueba las piezas intermedias dada una posición para comprobar la casilla destino y una posición inicial
+     * @param xDestino Columna final del tablero
+     * @param yDestino Fila final del tablero
+     * @param x Columna inicial del tablero
+     * @param y Fila inicial del tablero
+     * @return TRUE si hay piezas intermedias y FALSE si no lo encuentra
+     */
     public boolean compruebaPiezasIntermedias(int xDestino, int yDestino, int x, int y) {
         boolean posible = false;
         int comprobacion1 = yDestino - y;
@@ -315,6 +411,9 @@ public class Tablero {
         return false;
     }
 
+    /**
+     * Función que muestra por pantalla las piezas eliminadas/"muertas" del tablero
+     */
     public void mostrarPiezasMuertas() {
         if (piezasEliminadas.isEmpty()) {
             VistaTablero.mostrarMensaje("No hay piezas eliminadas.");
@@ -327,6 +426,10 @@ public class Tablero {
         }
     }
 
+    /**
+     * Función que elimina una pieza concreta colocándola en el arrayList de eliminadas y quitándola del arrayList propio
+     * @param pieza Pieza a eliminar colocándola en eliminadas y quitándola de su arrayList
+     */
     public void eliminarPieza(Pieza pieza) {
         if (pieza == null) {
             throw new IllegalArgumentException("La pieza a eliminar no existe");
@@ -342,11 +445,16 @@ public class Tablero {
         pieza.setY(-1);
     }
 
+    /**
+     * Función que comprueba si está atacando a un rey una pieza concreta
+     * @param pieza Pieza a comprobar si está atacando a un rey
+     * @return Devuelve TRUE si hay jaque y FALSE si no lo hay
+     */
     public boolean hayJaque(Pieza pieza) {
         boolean hayJaque = false;
         if (pieza.getColor() == Color.BLANCO) {
             try {
-                movimientoPiezaCorrecto(this.getPiezasNegras().get(16).getX(), this.getPiezasNegras().get(16).getY(), pieza);
+                movimientoPiezaCorrecto(this.getPiezasNegras().getLast().getX(), this.getPiezasNegras().getLast().getY(), pieza);
             } catch (IllegalArgumentException e) {
                 if (e.getMessage().equalsIgnoreCase("Error, en la casilla destino está el rey enemigo.")) {
                     hayJaque = true;
@@ -354,7 +462,7 @@ public class Tablero {
             }
         }else{
             try {
-                movimientoPiezaCorrecto(this.getPiezasBlancas().get(16).getX(), this.getPiezasNegras().get(16).getY(), pieza);
+                movimientoPiezaCorrecto(this.getPiezasBlancas().getLast().getX(), this.getPiezasNegras().getLast().getY(), pieza);
             } catch (IllegalArgumentException e) {
                 if (e.getMessage().equalsIgnoreCase("Error, en la casilla destino está el rey enemigo.")) {
                     hayJaque = true;
@@ -364,6 +472,14 @@ public class Tablero {
         return hayJaque;
     }
 
+    /**
+     * Función que comprueba el movimiento de la pieza con las diferentes condiciones (dentro de límites, puede mover, hay piezas intermedias)
+     * @param xDestino Columna de la casilla destino
+     * @param yDestino Fila de la casilla destino
+     * @param pieza Pieza
+     * @return Devuelve TRUE si pasa todas las condiciones y FALSE si alguna no se cumple
+     * Lanza excepciones para conocer que fallo ha habido
+     */
     public boolean movimientoPiezaCorrecto(int xDestino, int yDestino, Pieza pieza) {
         boolean movimientoCorrecto = false;
 
@@ -382,7 +498,7 @@ public class Tablero {
         Casilla cInicio = this.getCasillas()[pieza.getX()][pieza.getY()];
         Casilla cDestino = this.getCasillas()[xDestino][yDestino];
 
-        if (this.noHayReyEnemigoOPiezaMismoColor(xDestino, yDestino, pieza)) {
+        if (!this.hayReyEnemigoOPiezaMismoColor(xDestino, yDestino, pieza)) {
             if (cDestino.estaOcupada()) {
                 //CASILLA DESTINO ESTÁ OCUPADA POR ENEMIGO
                 VistaTablero.mostrarMensaje("La casilla destino tiene una pieza: " + cDestino.getPieza() + " se procede a su captura y eliminación.");
@@ -414,7 +530,7 @@ public class Tablero {
     public String toString() {
         String tablero = "";
         for (int y = 0; y < 8; y++) {
-            tablero += "\n" + y;
+            tablero += "\n" + y + " ";
             for (int x = 0; x < 8; x++) {
                 tablero += this.getCasillas()[x][y].getIcono();
             }
