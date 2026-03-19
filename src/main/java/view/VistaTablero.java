@@ -21,7 +21,12 @@ public class VistaTablero {
     }
 
     /**
-     * Muestra el menú principal con un diseño de caja y bordes dobles.
+     * Función que muestra el menú principal con un diseño de caja y bordes dobles con las opciones:
+     * 0 Salir
+     * 1 Seleccionar pieza
+     * 2 Reiniciar tablero
+     * 3 Cargar tablero
+     * 4 Guardar tablero
      */
     public static void mostrarMenuPrincipal() {
         VistaTablero.mostrarMensaje("\n╔═══════════════════════════════════════╗");
@@ -37,7 +42,9 @@ public class VistaTablero {
     }
 
     /**
-     * Muestra el submenú de acción para una pieza ya seleccionada.
+     * Función que muestra el submenu Pieza para una pieza ya seleccionada
+     * 0 Cancelar
+     * 1 Mover
      */
     public static void mostrarMenuPiezaSeleccionada() {
         VistaTablero.mostrarMensaje("\n┌───────────────────────────┐");
