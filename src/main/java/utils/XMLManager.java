@@ -6,7 +6,13 @@ import javax.xml.bind.Unmarshaller;
 import java.io.File;
 public class XMLManager {
 
-
+    /**
+     * Función que permite escribir en un xml los datos de una clase para almacenarlos
+     * @param t objeto concreto
+     * @param fileName Nombre del archivo a almacenar
+     * @return Devuelve TRUE si se ha guardado y FALSE si no se ha podido
+     * @param <T> Genérico de clase a devolver
+     */
     public static <T> boolean writeXML(T t , String fileName){
         boolean isWritten = false;
         try {
@@ -23,7 +29,13 @@ public class XMLManager {
         return isWritten;
     }
 
-
+    /**
+     * Función que permite cargar de un xml los datos de una clase para reasignarlos a otra clase
+     * @param t objeto concreto
+     * @param fileName Nombre del archivo a almacenar
+     * @return Devuelve TRUE si se ha cargado y FALSE si no se ha podido
+     * @param <T> Genérico de clase a devolver
+     */
     public static <T> T readXML(T t,String fileName){
         T result = t;
         try {
