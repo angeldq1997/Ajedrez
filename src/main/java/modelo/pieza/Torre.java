@@ -38,7 +38,7 @@ public class Torre extends Pieza {
     }
 
     @Override
-    public Pieza copiar () {
+    public Pieza copia() {
         return new Torre (this.getY(), this.getX(), this.getColor()) ;
     }
 }

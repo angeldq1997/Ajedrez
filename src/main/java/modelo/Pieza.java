@@ -43,7 +43,7 @@ public abstract class Pieza implements Serializable {
     /**
      * Función con la que podemos hacer una copia de la pieza
      */
-    public abstract Pieza copiar();
+    public abstract Pieza copia();
 
     public int getPuntos(){
         return this.puntos;
