@@ -278,9 +278,6 @@ public class Tablero implements Serializable {
         return puntuacionTotal;
     }
 
-    /**
-     *
-     */
     private void asignacionColorCasillas() {
         Casilla[][] c = this.casillas;
         for (int y = 0; y < 8; y++) {
@@ -460,7 +457,7 @@ public class Tablero implements Serializable {
                     hayJaque = true;
                 }
             }
-        }else{
+        } else {
             try {
                 movimientoPiezaCorrecto(this.getPiezasBlancas().getLast().getX(), this.getPiezasNegras().getLast().getY(), pieza);
             } catch (IllegalArgumentException e) {
@@ -483,22 +480,42 @@ public class Tablero implements Serializable {
     public boolean movimientoPiezaCorrecto(int xDestino, int yDestino, Pieza pieza) {
         boolean movimientoCorrecto = false;
 
+        if (pieza == null) return false;
+
         if (!this.estaEnLimites(xDestino, yDestino)) {
             VistaTablero.mostrarError("Fuera de límites.");
         }
-        if (pieza != null && !pieza.puedeMover(xDestino, yDestino)) {
-            throw new IllegalArgumentException("ERROR: Fuera de las casillas disponibles de movimiento.");
+
+        if (pieza instanceof Peon){
+            if (this.casillas[xDestino][yDestino].estaOcupada()){
+                if (!compruebaAtaquePeon(xDestino, yDestino, pieza)){
+                    throw new IllegalArgumentException("Error: movimiento de ataque inválido para el peón");
+                }
+            } else {
+                if (!pieza.puedeMover(xDestino, yDestino)){
+                    throw new IllegalArgumentException("Error: movimiento inválido para el peón");
+                }
+            }
+        } else {
+            if (!pieza.puedeMover(xDestino, yDestino)) {
+                throw new IllegalArgumentException("ERROR: Fuera de las casillas disponibles de movimiento.");
+            }
         }
+
         if (!(pieza instanceof Saltadora)) {
             if (this.hayPiezasIntermedias(pieza.getX(), pieza.getY(), xDestino, yDestino)) {
                 throw new IllegalArgumentException("ERROR: Hay una pieza en medio del camino.");
             }
         }
 
+        if (seDejaEnJaqueReyAliado(pieza)) {
+            throw new IllegalArgumentException("Se está dejando en jaque al rey aliado");
+        }
+
         Casilla cInicio = this.getCasillas()[pieza.getX()][pieza.getY()];
         Casilla cDestino = this.getCasillas()[xDestino][yDestino];
 
-        if (!this.hayReyEnemigoOPiezaMismoColor(xDestino, yDestino, pieza)) {
+        if (!this.hayReyEnemigoOPiezaMismoColor(xDestino, yDestino, pieza) ) {
             if (cDestino.estaOcupada()) {
                 //CASILLA DESTINO ESTÁ OCUPADA POR ENEMIGO
                 VistaTablero.mostrarMensaje("La casilla destino tiene una pieza: " + cDestino.getPieza() + " se procede a su captura y eliminación.");
@@ -524,6 +541,50 @@ public class Tablero implements Serializable {
             VistaTablero.mostrarMensaje("No es posible mover la pieza a la posición seleccionada.");
         }
         return movimientoCorrecto;
+    }
+
+    /**
+     * Función que comprueba si el ataque del peón es válido
+     * @param xDestino Columna final
+     * @param yDestino Fila final
+     * @param pieza Pieza (Peon) a comprobar
+     * @return TRUE si puede atacar y FALSE si no es el caso
+     */
+    public boolean compruebaAtaquePeon(int xDestino, int yDestino, Pieza pieza) {
+        boolean esPeonYPuedeAtacar = false;
+        if (((Peon) pieza).puedeAtacar(xDestino, yDestino)) {
+            esPeonYPuedeAtacar = true;
+        }
+        return esPeonYPuedeAtacar;
+    }
+
+    /**
+     * Función que comprueba si se deja en jaque al equipo aliado
+     * @param pieza Pieza de la que tomar el color del equipo
+     * @return TRUE si se deja en jaque al rey y FALSE si no es el caso
+     */
+    public boolean seDejaEnJaqueReyAliado(Pieza pieza) {
+        boolean hayJaque = false;
+        ArrayList<Pieza> piezasAliadas = null;
+        ArrayList<Pieza> piezasEnemigas = null;
+        if (pieza.getColor() == Color.BLANCO){
+            piezasAliadas = this.getPiezasBlancas();
+            piezasEnemigas = this.getPiezasNegras();
+        }else{
+            piezasAliadas = this.getPiezasNegras();
+            piezasEnemigas = this.getPiezasBlancas();
+        }
+
+        for (Pieza pieza1 : piezasEnemigas) {
+            try {
+                movimientoPiezaCorrecto(piezasAliadas.getLast().getX(), piezasAliadas.getLast().getY(), pieza1);
+            } catch (IllegalArgumentException e) {
+                if (e.getMessage().equalsIgnoreCase("Error, en la casilla destino está el rey enemigo.")) {
+                    hayJaque = true;
+                }
+            }
+        }
+        return hayJaque;
     }
 
     @Override
