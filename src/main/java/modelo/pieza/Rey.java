@@ -3,7 +3,15 @@ import modelo.Color;
 import modelo.Pieza;
 import modelo.TipoPieza;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Rey extends Pieza {
+
+    public Rey (){}
+
     public Rey(int x, int y, Color color) {
         super(x, y, color, 100);
         this.tipoPieza = TipoPieza.REY;
@@ -15,10 +23,10 @@ public class Rey extends Pieza {
     }
 
     /**
-     * Método con el que podemos hacer que el rey se pueda mover, comprobando todo.
+     * Función con la que comprobamos que el rey se puede mover
      * @param yDestino El número de la fila donde queremos mover la pieza
      * @param xDestino El número de la columna donde queremos mover la pieza
-     * @return Devuelve true si se puede mover y false, si no se puede mover
+     * @return Devuelve true si se puede mover y false si no se puede mover
      */
 
     @Override
@@ -30,13 +38,5 @@ public class Rey extends Pieza {
     @Override
     public Pieza copiar() {
         return new Rey(this.getX(), this.getY(), this.getColor()); // Creamos un nuevo Rey con los mismos datos actuales
-    }
-
-    public String toString() {
-        if (this.getColor() == Color.BLANCO) {
-            return "♔";
-        } else {
-            return "♚";
-        }
     }
 }

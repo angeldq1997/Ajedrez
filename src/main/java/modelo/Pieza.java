@@ -1,15 +1,26 @@
 package modelo;
 
+import modelo.pieza.*;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSeeAlso;
 import java.io.Serializable;
 import java.util.Objects;
-
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlSeeAlso({Alfil.class, Caballo.class, Peon.class, Reina.class, Rey.class, Torre.class})
 public abstract class Pieza implements Serializable {
+    private Color color;
     private int x;
     private int y;
-    private Color color;
     private char icono;
     protected TipoPieza tipoPieza;
     private int puntos;
+
+    public Pieza() {
+    }
 
     public Pieza(int x, int y, Color color, int puntos) {
         if (color == null){
@@ -22,7 +33,7 @@ public abstract class Pieza implements Serializable {
     }
 
     /**
-     * Método con el que podemos definir en cada pieza que herede, la manera de moverse en el tablero
+     * Función con la que podemos definir en cada pieza que herede, la manera de moverse en el tablero
      * @param xDestino El número de la columna donde queremos mover la pieza
      * @param yDestino El número de la fila donde queremos mover la pieza
      * @return Devuelve un booleano
@@ -30,14 +41,10 @@ public abstract class Pieza implements Serializable {
     public abstract boolean puedeMover (int xDestino, int yDestino);
 
     /**
-     * Método con el que podemos hacer una copia de la pieza
+     * Función con la que podemos hacer una copia de la pieza
      */
     public abstract Pieza copiar();
 
-    /**
-     * Método con el que podemos obtener los puntos de una pieza
-     * @return Devuelve los puntos de una pieza
-     */
     public int getPuntos(){
         return this.puntos;
     }
@@ -97,10 +104,16 @@ public abstract class Pieza implements Serializable {
         return Objects.hash(x, y, color, tipoPieza);
     }
 
+    /**
+     * Función que asigna una pieza a una casilla concreta con su posición, pasando a estar ocupada
+     * @param casillas Las casillas del tablero concreto
+     */
     public void asignarCasilla(Casilla[][] casillas) {
         Casilla c = casillas[this.getX()][this.getY()];
         c.setPieza(this);
     }
   
-    public abstract String toString ();
+    public String toString (){
+        return this.getIcono() + " " + this.getTipoPieza() + " " + this.getX() + " " + this.getY() + " " + this.getColor() + " " + this.getPuntos();
+    }
 }

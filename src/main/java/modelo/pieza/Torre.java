@@ -1,10 +1,17 @@
 package modelo.pieza;
-
 import modelo.Color;
 import modelo.Pieza;
 import modelo.TipoPieza;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Torre extends Pieza {
+
+    public Torre (){}
+
     public Torre(int x, int y, Color color) {
         super(x, y, color, 5);
         this.tipoPieza = TipoPieza.TORRE;
@@ -16,7 +23,7 @@ public class Torre extends Pieza {
     }
 
     /**
-     * Método con el que podemos hacer que la torre se pueda mover, comprobando todo.
+     * Función con la que comprobamos el movimiento de la torre
      * @param xDestino El número de la columna donde queremos mover la pieza
      * @param yDestino El número de la fila donde queremos mover la pieza
      * @return Devuelve true si se puede mover y false, si no se puede mover
@@ -33,13 +40,5 @@ public class Torre extends Pieza {
     @Override
     public Pieza copiar () {
         return new Torre (this.getY(), this.getX(), this.getColor()) ;
-    }
-
-    public String toString() {
-        if (this.getColor() == Color.BLANCO) {
-            return "♖";
-        } else {
-            return "♜";
-        }
     }
 }

@@ -1,4 +1,6 @@
 package utils;
+import view.VistaTablero;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 public class Utils {
@@ -17,7 +19,7 @@ public class Utils {
         Scanner sc = new Scanner(System.in);
         do {
             try {
-                System.out.print(msn);
+                System.out.println(msn);
                 resultado = sc.nextInt();
                 esValido = true;
             } catch (InputMismatchException e) {
@@ -53,5 +55,54 @@ public class Utils {
             }
         } while (!esValido);
         return resultado;
+    }
+
+    /**
+     * Method para recibir la confirmación de un usuario ante un cambio importante o que pueda tener consecuencias graves
+     * @param mensajeConfirmar Mensaje para pedir de forma personalizada la confirmación al usuario
+     * @return Devuelve TRUE si acepta y FALSE si introduce cualquier input salvo "SI" en texto
+     */
+    public static boolean confirmarInput(String mensajeConfirmar, String mensajeConfirmacion){
+        boolean usuarioAcepta = false;
+        VistaTablero.mostrarMensaje(mensajeConfirmar);
+        String confirmar = validarString("Introduzca SI para confirmar o NO para cancelar.");
+        if (confirmar.equalsIgnoreCase("SI")){
+            usuarioAcepta = true;
+            VistaTablero.mostrarMensaje(mensajeConfirmacion);
+        }
+        return usuarioAcepta;
+    }
+
+    /**
+     * Función para validar una cadena de texto introducida por el usuario (que no esté vacía)
+     * @param mensajeAPedir Cadena de texto con mensaje personalizado para pedir el texto
+     * @return Devuelve la cadena validada, si está vacía lanza excepción
+     */
+    public static String validarString(String mensajeAPedir){
+        Scanner keyboard =  new Scanner(System.in);
+        String cadenaAValidar = "";
+        VistaTablero.mostrarMensaje(mensajeAPedir);
+        cadenaAValidar = keyboard.nextLine();
+        if (cadenaAValidar.isBlank()){
+            throw new InputMismatchException("No ha introducido texto.");
+        }
+        return cadenaAValidar;
+    }
+
+    /**
+     * NO SE USA ACTUALMENTE - SI SE CAMBIA A LETRAS EN COLUMNA ES NECESARIO
+     * Función para validar un carácter introducido por el usuario (que no esté vacía)
+     * @param mensajeAPedir Mensaje personalizado para pedir carácter
+     * @return el carácter validado
+     */
+    public static char validarChar(String mensajeAPedir){
+        Scanner keyboard =  new Scanner(System.in);
+        char cadenaAValidar = ' ';
+        VistaTablero.mostrarMensaje(mensajeAPedir);
+        cadenaAValidar = keyboard.nextLine().charAt(0);
+        if (cadenaAValidar == ' '){
+            throw new InputMismatchException("No ha introducido texto.");
+        }
+        return cadenaAValidar;
     }
 }
