@@ -89,9 +89,9 @@ public class ControladorTablero {
     public void subMenuPiezaSeleccionada(Pieza pieza) {
         boolean quedarseEnMenu = true;
         setPiezaActual(pieza);
-        VistaTablero.mostrarMensaje("Pieza seleccionada: " + pieza.toString());
         do {
             VistaTablero.mostrarMenuPiezaSeleccionada();
+            VistaTablero.mostrarMensaje("Pieza seleccionada: " + pieza.toString());
             mostrarTablero();
             int opcion = Utils.pideIntAcotado(0, 1, "Introduce opción: ", "Error, debe introducir un número entre 0 y 1");
             switch (opcion) {
