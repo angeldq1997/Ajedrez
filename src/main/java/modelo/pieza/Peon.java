@@ -2,9 +2,12 @@ package modelo.pieza;
 import modelo.Color;
 import modelo.Pieza;
 import modelo.TipoPieza;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
-
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Peon extends Pieza {
 
     public Peon (){}
@@ -19,7 +22,7 @@ public class Peon extends Pieza {
     }
 
     /**
-     * Método con el que hacemos que el peon se mueva, comprobando todo
+     * Función con la que hacemos que el peon compruebe movimiento
      * @param xDestino El número de la columna donde queremos mover la pieza
      * @param yDestino El número de la fila donde queremos mover la pieza
      * @return Devuelve si el movimiento es válido (true) o si no lo es (false)
@@ -48,7 +51,7 @@ public class Peon extends Pieza {
     }
 
     /**
-     * Método sobreescrito con el que podemos atacar con el peon
+     * Función con la que podemos atacar con el peon
      * @param yDestino El número de la columna donde queremos mover a la pieza en el tablero
      * @param xDestino El número de la fila donde queremos mover a la pieza en el tablero
      * @return Devuelve si el peon puede atacar (true) o no puede atacar (false)
