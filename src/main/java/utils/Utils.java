@@ -19,7 +19,7 @@ public class Utils {
         Scanner sc = new Scanner(System.in);
         do {
             try {
-                System.out.print(msn);
+                System.out.println(msn);
                 resultado = sc.nextInt();
                 esValido = true;
             } catch (InputMismatchException e) {
@@ -84,6 +84,23 @@ public class Utils {
         VistaTablero.mostrarMensaje(mensajeAPedir);
         cadenaAValidar = keyboard.nextLine();
         if (cadenaAValidar.isBlank()){
+            throw new InputMismatchException("No ha introducido texto.");
+        }
+        return cadenaAValidar;
+    }
+
+    /**
+     * NO SE USA ACTUALMENTE - SI SE CAMBIA A LETRAS EN COLUMNA ES NECESARIO
+     * Función para validar un carácter introducido por el usuario (que no esté vacía)
+     * @param mensajeAPedir Mensaje personalizado para pedir carácter
+     * @return el carácter validado
+     */
+    public static char validarChar(String mensajeAPedir){
+        Scanner keyboard =  new Scanner(System.in);
+        char cadenaAValidar = ' ';
+        VistaTablero.mostrarMensaje(mensajeAPedir);
+        cadenaAValidar = keyboard.nextLine().charAt(0);
+        if (cadenaAValidar == ' '){
             throw new InputMismatchException("No ha introducido texto.");
         }
         return cadenaAValidar;
