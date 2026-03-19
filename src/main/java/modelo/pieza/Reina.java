@@ -50,7 +50,7 @@ public class Reina extends Pieza {
     }
 
     @Override
-    public Pieza copiar() {
+    public Pieza copia() {
         return new Reina(getY(), getX(), getColor());
     }
 }

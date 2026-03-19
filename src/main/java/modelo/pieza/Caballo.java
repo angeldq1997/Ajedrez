@@ -31,7 +31,7 @@ public class Caballo extends Pieza implements Saltadora {
     }
 
     @Override
-    public Pieza copiar() {
+    public Pieza copia() {
         return new Caballo(this.getX(), this.getY(), this.getColor());
     }
 }

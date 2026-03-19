@@ -56,7 +56,7 @@ public class Peon extends Pieza {
      * @param xDestino El número de la fila donde queremos mover a la pieza en el tablero
      * @return Devuelve si el peon puede atacar (true) o no puede atacar (false)
      */
-    public boolean puedeAtacar(int yDestino, int xDestino) {
+    public boolean puedeAtacar(int xDestino, int yDestino) {
         // Solo puede atacar 1 casilla diagonal hacia delante
         int diferenciaFila = yDestino - getY();
         int diferenciaColumna = xDestino - getX();
@@ -76,7 +76,7 @@ public class Peon extends Pieza {
     }
 
     @Override
-    public Pieza copiar() {
+    public Pieza copia() {
         return new Peon(getX(), getY(), getColor());
     }
 }
