@@ -21,7 +21,7 @@ public class VistaTablero {
     }
 
     /**
-     * Función que muestra el menú principal con las opciones:
+     * Función que muestra el menú principal con un diseño de caja y bordes dobles con las opciones:
      * 0 Salir
      * 1 Seleccionar pieza
      * 2 Reiniciar tablero
@@ -42,7 +42,7 @@ public class VistaTablero {
     }
 
     /**
-     * Función que muestra el submenu Pieza
+     * Función que muestra el submenu Pieza para una pieza ya seleccionada
      * 0 Cancelar
      * 1 Mover
      */
