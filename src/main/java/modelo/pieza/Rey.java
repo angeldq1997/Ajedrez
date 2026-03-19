@@ -23,10 +23,10 @@ public class Rey extends Pieza {
     }
 
     /**
-     * Método con el que podemos hacer que el rey se pueda mover, comprobando todo.
+     * Función con la que comprobamos que el rey se puede mover
      * @param yDestino El número de la fila donde queremos mover la pieza
      * @param xDestino El número de la columna donde queremos mover la pieza
-     * @return Devuelve true si se puede mover y false, si no se puede mover
+     * @return Devuelve true si se puede mover y false si no se puede mover
      */
 
     @Override
