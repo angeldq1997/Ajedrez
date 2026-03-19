@@ -46,7 +46,7 @@ public class Alfil extends Pieza {
     }
 
     @Override
-    public Pieza copiar() {
+    public Pieza copia() {
         return new Alfil(getX(), getY(), getColor());
     }
 }

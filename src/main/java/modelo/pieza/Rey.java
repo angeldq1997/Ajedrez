@@ -36,7 +36,7 @@ public class Rey extends Pieza {
      
 
     @Override
-    public Pieza copiar() {
+    public Pieza copia() {
         return new Rey(this.getX(), this.getY(), this.getColor()); // Creamos un nuevo Rey con los mismos datos actuales
     }
 }

@@ -76,7 +76,7 @@ public class Peon extends Pieza {
     }
 
     @Override
-    public Pieza copiar() {
+    public Pieza copia() {
         return new Peon(getX(), getY(), getColor());
     }
 }
