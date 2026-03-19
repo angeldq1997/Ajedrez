@@ -3,11 +3,12 @@ import modelo.Color;
 import modelo.Pieza;
 import modelo.TipoPieza;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-
-
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Reina extends Pieza {
 
     public Reina() {
@@ -24,9 +25,9 @@ public class Reina extends Pieza {
     }
 
     /**
-     * Método con el que podemos hacer que la reina se pueda mover, comprobando todo.
-     * @param yDestino El número de la fila donde queremos mover la pieza
+     * Función con la que comprobamos el movimiento de la reina
      * @param xDestino El número de la columna donde queremos mover la pieza
+     * @param yDestino El número de la fila donde queremos mover la pieza
      * @return Devuelve true si se puede mover y false, si no se puede mover
      */
     @Override
