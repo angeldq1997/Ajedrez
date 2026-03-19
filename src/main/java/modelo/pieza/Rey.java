@@ -2,9 +2,12 @@ package modelo.pieza;
 import modelo.Color;
 import modelo.Pieza;
 import modelo.TipoPieza;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
-
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Rey extends Pieza {
 
     public Rey (){}
